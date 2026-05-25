@@ -15,6 +15,9 @@
 
 <body class="login-body">
 
+    <!-- NAVBAR -->
+    <?php include 'includes/navbar.php'; ?>
+
     <!-- CONNEXION CARD -->
     <div class="login-container">
 

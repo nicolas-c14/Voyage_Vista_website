@@ -80,16 +80,21 @@
 
 /* LOGIN */
 .login-body {
-    background: rgba(46, 164, 196, 0.244);
-    height: 100vh;
+    background: #FEFDFD;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
 .login-container {
     width: 100%;
     max-width: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 20px;
+    margin: auto;
 }
 
 .login-card {
