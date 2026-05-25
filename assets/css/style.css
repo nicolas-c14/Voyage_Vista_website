@@ -67,7 +67,7 @@
 
 /* LOGIN */
 .login-body {
-    background: linear-gradient(to right, #0d6efd, #4da3ff);
+    background: rgba(46, 164, 196, 0.244);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -76,7 +76,7 @@
 
 .login-container {
     width: 100%;
-    max-width: 450px;
+    max-width: 750px;
 }
 
 .login-card {
