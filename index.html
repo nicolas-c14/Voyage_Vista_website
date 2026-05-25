@@ -1,41 +1,223 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Voyage Vista</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoyageVista</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css\bootstrap.min.css">
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">Voyage Vista</a>
-                <form class="d-flex">
-                    <input class="form-control me-2" list="search" id="searchInput" placeholder="Rechercher une destination" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Rechercher</button>                
-                </form>
-                <a class="btn btn-primary" href="login.html">Se connecter</a>
-             
-            </div>
-        </nav>
-    </header>
 
-    <nav>   
-        <div class="container mt-4">
-                <h1>Bienvenue sur Voyage Vista</h1>
-                <p>Découvrez les meilleures destinations de voyage à travers le monde avec Voyage Vista. Planifiez votre prochaine aventure dès aujourd'hui !</p>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="index.html">
+                VoyageVista
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="destinations.html">Destinations</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Offres</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-light" href="login.html">
+                            Se connecter
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
         </div>
-        
     </nav>
 
-    <!-- JS -->
-    <link rel="javascript" href ="js\bootstrap.bundle.min.js">
-    <link rel="javascript" href ="js\script.js">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
 
+        <div class="hero-overlay"></div>
+
+        <div class="container hero-content text-center">
+
+            <h1 class="display-4 fw-bold">
+                Explorez le monde avec VoyageVista
+            </h1>
+
+            <p class="lead">
+                Réservez vos destinations, hôtels et activités en quelques clics.
+            </p>
+
+            <!-- SEARCH BAR -->
+            <div class="search-box mt-4">
+
+                <form id="searchForm" class="row g-2 justify-content-center">
+
+                    <div class="col-md-5">
+                        <input type="text"
+                            id="searchInput"
+                            class="form-control form-control-lg"
+                            placeholder="Rechercher une destination">
+                    </div>
+
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            Rechercher
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section class="container my-5">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Destinations populaires</h2>
+            <p>Choisissez votre prochaine aventure.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- CARD 1 -->
+            <div class="col-md-4">
+
+                <div class="card destination-card h-100">
+
+                    <img src="assets/images/paris.jpg"
+                        class="card-img-top"
+                        alt="Paris">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            Paris, France
+                        </h5>
+
+                        <p class="card-text">
+                            Découvrez la ville de l’amour et ses monuments emblématiques.
+                        </p>
+
+                        <a href="destinations.html" class="btn btn-outline-primary">
+                            Découvrir
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="col-md-4">
+
+                <div class="card destination-card h-100">
+
+                    <img src="assets/images/london.jpg"
+                        class="card-img-top"
+                        alt="Londres">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            Londres, Royaume-Uni
+                        </h5>
+
+                        <p class="card-text">
+                            Explorez la capitale britannique et sa culture unique.
+                        </p>
+
+                        <a href="destinations.html" class="btn btn-outline-primary">
+                            Découvrir
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="col-md-4">
+
+                <div class="card destination-card h-100">
+
+                    <img src="assets/images/barcelone.jpg"
+                        class="card-img-top"
+                        alt="Barcelone">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            Barcelone, Espagne
+                        </h5>
+
+                        <p class="card-text">
+                            Découvrez l’architecture et les plages de Barcelone.
+                        </p>
+
+                        <a href="destinations.html" class="btn btn-outline-primary">
+                            Découvrir
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="container text-center">
+
+            <p class="mb-0">
+                © 2026 VoyageVista - Tous droits réservés
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS -->
+    <script src="assets/js/script.js"></script>
 
 </body>
+
 </html>

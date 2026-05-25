@@ -1,35 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Page de connexion - Voyage Vista</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - VoyageVista</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body class="login-body">
 
-    <input type="text" id="search" placeholder="Rechercher...">
+    <div class="login-container">
 
-    <select id="mySelect" size="5">
-        <option>Pomme</option>
-        <option>Poire</option>
-        <option>Banane</option>-
-        <option>Fraise</option>
-        <option>Mangue</option>
-    </select>
+        <div class="login-card">
 
-    <script>
-        const searchInput = document.getElementById('search');
-        const select = document.getElementById('mySelect');
-        const options = Array.from(select.options);
+            <h2 class="text-center mb-4">
+                Connexion
+            </h2>
 
-        searchInput.addEventListener('input', () => {
-        const filter = searchInput.value.toLowerCase();
-        select.innerHTML = ''; // Vide la liste
-        options
-            .filter(opt => opt.text.toLowerCase().includes(filter))
-            .forEach(opt => select.appendChild(opt));
-        });
-    </script>
+            <form id="loginForm">
+
+                <div class="mb-3">
+
+                    <label>Email</label>
+
+                    <input type="email"
+                        class="form-control"
+                        placeholder="Entrez votre email"
+                        required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Mot de passe</label>
+
+                    <input type="password"
+                        class="form-control"
+                        placeholder="Entrez votre mot de passe"
+                        required>
+
+                </div>
+
+                <button class="btn btn-primary w-100">
+                    Se connecter
+                </button>
+
+            </form>
+
+            <p class="text-center mt-3">
+                Pas encore inscrit ?
+                <a href="#">Créer un compte</a>
+            </p>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

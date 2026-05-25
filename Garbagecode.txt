@@ -1,0 +1,23 @@
+<input type="text" id="search" placeholder="Rechercher...">
+
+    <select id="mySelect" size="5">
+        <option>Pomme</option>
+        <option>Poire</option>
+        <option>Banane</option>
+        <option>Fraise</option>
+        <option>Mangue</option>
+    </select>
+
+    <script>
+        const searchInput = document.getElementById('search');
+        const select = document.getElementById('mySelect');
+        const options = Array.from(select.options);
+
+        searchInput.addEventListener('input', () => {
+        const filter = searchInput.value.toLowerCase();
+        select.innerHTML = ''; // Vide la liste
+        options
+            .filter(opt => opt.text.toLowerCase().includes(filter))
+            .forEach(opt => select.appendChild(opt));
+        });
+    </script>
