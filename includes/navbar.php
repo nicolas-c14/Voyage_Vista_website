@@ -2,6 +2,7 @@
         <div class="container">
 
             <a class="navbar-brand fw-bold" href="index.php">
+                <img src="assets/images/VoyageVistaLogo.png" alt="VoyageVista logo" class="brand-logo-img">
                 VoyageVista
             </a>
 
