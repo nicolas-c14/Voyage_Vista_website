@@ -24,9 +24,12 @@
             </h2>
 
             <!-- REGISTER FORM -->
+            <?php require_once 'includes/csrf.php'; ?>
             <form action="auth/register.php"
-                  method="POST"
-                  id="registerForm">
+                method="POST"
+                id="registerForm">
+
+                <?php echo csrf_input_field(); ?>
 
                 <!-- NOM / PRENOM -->
                 <div class="row g-3">

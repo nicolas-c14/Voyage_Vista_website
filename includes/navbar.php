@@ -1,3 +1,10 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
         <div class="container">
 
@@ -27,11 +34,23 @@
                         <a class="nav-link" href="#">Offres</a>
                     </li>
 
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                    <li class="nav-item dropdown ms-lg-3">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo htmlspecialchars($_SESSION['user_name'] ?? ($_SESSION['user_email'] ?? 'Utilisateur'), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                            <li><a class="dropdown-item" href="profile.php">Mon profil</a></li>
+                            <li><a class="dropdown-item" href="auth/logout.php">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                    <?php else: ?>
                     <li class="nav-item ms-lg-3">
                         <a class="btn btn-light" href="login.php">
                             Se connecter
                         </a>
                     </li>
+                    <?php endif; ?>
 
                 </ul>
 

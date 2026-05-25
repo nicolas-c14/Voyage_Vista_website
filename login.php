@@ -24,7 +24,10 @@
                 Connexion
             </h2>
 
-            <form id="loginForm">
+            <?php require_once 'includes/csrf.php'; ?>
+            <form id="loginForm" action="auth/login.php" method="POST">
+
+                <?php echo csrf_input_field(); ?>
 
                 <div class="mb-3">
 
@@ -33,6 +36,7 @@
                     <input type="email"
                         class="form-control"
                         placeholder="Entrez votre email"
+                        name="email"
                         required>
 
                 </div>
@@ -44,6 +48,7 @@
                     <input type="password"
                         class="form-control"
                         placeholder="Entrez votre mot de passe"
+                        name="password"
                         required>
 
                 </div>

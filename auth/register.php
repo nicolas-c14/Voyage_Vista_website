@@ -1,6 +1,7 @@
 <?php
 
 require_once "../config/database.php";
+require_once __DIR__ . '/../includes/csrf.php';
 
 /* =========================
    CHECK FORM
@@ -34,6 +35,17 @@ if (
 
     die("Tous les champs sont obligatoires.");
 
+}
+
+// CSRF token validation
+$token = $_POST['csrf_token'] ?? '';
+if (!csrf_validate($token)) {
+    die('Requête invalide (CSRF).');
+}
+
+// Server-side email validation
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    die('Email invalide.');
 }
 
 /* =========================
