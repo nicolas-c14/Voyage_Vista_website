@@ -1,6 +1,13 @@
+<?php
+
+require_once "models/destinationModel.php";
+
+$destinations = getAllDestinations();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,92 +76,52 @@
 
         <div class="row g-4">
 
-            <!-- CARD 1 -->
-            <div class="col-md-4">
+            <?php foreach($destinations as $destination): ?>
 
-                <div class="card destination-card h-100">
+                <div class="col-md-4">
 
-                    <img src="assets/images/paris.jpg"
-                        class="card-img-top"
-                        alt="Paris">
+                    <div class="card destination-card h-100">
 
-                    <div class="card-body">
+                        <img src="assets/images/<?= $destination["image"]; ?>"
+                            class="card-img-top"
+                            alt="<?= $destination["name"]; ?>">
 
-                        <h5 class="card-title">
-                            Paris, France
-                        </h5>
+                        <div class="card-body">
 
-                        <p class="card-text">
-                            Découvrez la ville de l’amour et ses monuments emblématiques.
-                        </p>
+                            <h5 class="card-title">
 
-                        <a href="destinations.php" class="btn btn-outline-primary">
-                            Découvrir
-                        </a>
+                                <?= $destination["name"]; ?>,
+                                <?= $destination["country"]; ?>
 
-                    </div>
+                            </h5>
 
-                </div>
+                            <p class="card-text">
 
-            </div>
+                                <?= $destination["description"]; ?>
 
-            <!-- CARD 2 -->
-            <div class="col-md-4">
+                            </p>
 
-                <div class="card destination-card h-100">
+                            <p class="fw-bold text-primary">
 
-                    <img src="assets/images/london.jpg"
-                        class="card-img-top"
-                        alt="Londres">
+                                À partir de
+                                <?= $destination["price"]; ?> €
 
-                    <div class="card-body">
+                            </p>
 
-                        <h5 class="card-title">
-                            Londres, Royaume-Uni
-                        </h5>
+                            <a href="destination.php?id=<?= $destination["id"]; ?>"
+                            class="btn btn-outline-primary">
 
-                        <p class="card-text">
-                            Explorez la capitale britannique et sa culture unique.
-                        </p>
+                                Découvrir
 
-                        <a href="destinations.php" class="btn btn-outline-primary">
-                            Découvrir
-                        </a>
+                            </a>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
-
-            <!-- CARD 3 -->
-            <div class="col-md-4">
-
-                <div class="card destination-card h-100">
-
-                    <img src="assets/images/barcelone.jpg"
-                        class="card-img-top"
-                        alt="Barcelone">
-
-                    <div class="card-body">
-
-                        <h5 class="card-title">
-                            Barcelone, Espagne
-                        </h5>
-
-                        <p class="card-text">
-                            Découvrez l’architecture et les plages de Barcelone.
-                        </p>
-
-                        <a href="destinations.php" class="btn btn-outline-primary">
-                            Découvrir
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
+            <?php endforeach; ?>
 
         </div>
 

@@ -1,16 +1,37 @@
+<?php
+
+require_once "models/destinationModel.php";
+
+/* =========================
+   GET DESTINATIONS
+========================= */
+
+$destinations = getAllDestinations();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinations - VoyageVista</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Destinations - VoyageVista
+    </title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    
+    <link rel="stylesheet"
+          href="assets/css/bootstrap.min.css">
+
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
 </head>
 
 <body>
@@ -19,98 +40,84 @@
     <?php include 'includes/navbar.php'; ?>
 
     <!-- DESTINATIONS -->
-    <div class="container py-5">
+    <section class="container py-5">
 
-        <h1 class="text-center mb-5">
-            Choisissez votre destination
-        </h1>
+        <div class="text-center mb-5">
 
-        <!-- PRESENTATIONS CARDS -->
-        <div class="row g-4">
+            <h1 class="fw-bold">
+                Choisissez votre destination
+            </h1>
 
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/paris.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>Paris</h5>
-                        <p>France</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/london.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>Londres</h5>
-                        <p>Royaume-Uni</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/barcelone.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>Barcelone</h5>
-                        <p>Espagne</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/rome.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>Rome</h5>
-                        <p>Italie</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/newyork.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>New York</h5>
-                        <p>États-Unis</p>
-                    </div>
-                </div>  
-            </div>
-
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/tokyo.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>Tokyo</h5>
-                        <p>Japon</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/sydney.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>Sydney</h5>
-                        <p>Australie</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card destination-card">
-                    <img src="assets/images/capetown.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5>Le Cap</h5>
-                        <p>Afrique du Sud</p>
-                    </div>
-                </div>
-            </div>
+            <p>
+                Explorez les meilleures destinations disponibles.
+            </p>
 
         </div>
 
-    </div>
+        <!-- DESTINATIONS GRID -->
+        <div class="row g-4">
+
+            <?php foreach($destinations as $destination): ?>
+
+                <div class="col-md-3">
+
+                    <div class="card destination-card h-100 shadow-sm">
+
+                        <!-- IMAGE -->
+                        <img src="assets/images/<?= $destination["image"]; ?>"
+                             class="card-img-top"
+                             alt="<?= $destination["name"]; ?>">
+
+                        <!-- BODY -->
+                        <div class="card-body d-flex flex-column">
+
+                            <h5 class="card-title">
+
+                                <?= $destination["name"]; ?>
+
+                            </h5>
+
+                            <p class="text-muted">
+
+                                <?= $destination["country"]; ?>
+
+                            </p>
+
+                            <p class="small flex-grow-1">
+
+                                <?= substr(
+                                    $destination["description"],
+                                    0,
+                                    80
+                                ); ?>...
+
+                            </p>
+
+                            <h6 class="text-primary fw-bold">
+
+                                <?= $destination["price"]; ?> €
+
+                            </h6>
+
+                            <!-- BUTTON -->
+                            <a href="destination.php?id=<?= $destination["id"]; ?>"
+                               class="btn btn-outline-primary mt-3">
+
+                                Découvrir
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+
+    </section>
 
     <!-- FOOTER -->
     <?php include 'includes/footer.php'; ?>
