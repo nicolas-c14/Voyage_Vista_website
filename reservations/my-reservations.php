@@ -25,6 +25,8 @@ $reservations =
         $_SESSION["user_id"]
     );
 
+$hasReservations = !empty($reservations);
+
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +58,20 @@ $reservations =
     </h1>
 
     <div class="row g-4">
+
+        <?php if(!$hasReservations): ?>
+
+            <div class="col-12">
+
+                <div class="alert alert-info mb-0">
+
+                    Vous n'avez pas encore de réservation.
+
+                </div>
+
+            </div>
+
+        <?php endif; ?>
 
         <?php foreach($reservations as $reservation): ?>
 
