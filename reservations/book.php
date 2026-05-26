@@ -2,8 +2,8 @@
 
 session_start();
 
-require_once "../models/destinationModel.php";
-require_once "../models/reservationModel.php";
+require_once __DIR__ . "/../models/destinationModel.php";
+require_once __DIR__ . "/../models/reservationModel.php";
 
 /* =========================
    LOGIN CHECK

@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "models/destinationModel.php";
+require_once __DIR__ . "/models/destinationModel.php";
 
 /* =========================
    CHECK ID
@@ -67,7 +67,7 @@ if (!$destination) {
 <body>
 
     <!-- NAVBAR -->
-    <?php include 'includes/navbar.php'; ?>
+    <?php include __DIR__ . '/includes/navbar.php'; ?>
 
     <!-- DESTINATION -->
     <section class="container my-5">
@@ -145,7 +145,7 @@ if (!$destination) {
     </section>
 
     <!-- FOOTER -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 
 </body>
 

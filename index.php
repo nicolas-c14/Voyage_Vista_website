@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "models/destinationModel.php";
+require_once __DIR__ . "/models/destinationModel.php";
 
 $destinations = getAllDestinations();
 
@@ -26,7 +26,7 @@ $destinations = getAllDestinations();
 <body>
 
     <!-- NAVBAR -->
-    <?php include 'includes/navbar.php'; ?>
+    <?php include __DIR__ . '/includes/navbar.php'; ?>
 
     <!-- HERO SECTION -->
     <section class="hero-section">
@@ -181,7 +181,7 @@ $destinations = getAllDestinations();
 
 
     <!-- FOOTER -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 
     <!-- Bootstrap JS -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>

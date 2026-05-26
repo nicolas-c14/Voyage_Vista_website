@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/app.php';
+
 $host = "localhost";
 $dbname = "voyagevista";
 $username = "root";

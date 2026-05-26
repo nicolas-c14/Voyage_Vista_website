@@ -13,7 +13,7 @@ function getAllDestinations() {
     $stmt = $pdo->prepare(
 
         "SELECT * FROM destinations
-         ORDER BY created_at DESC"
+         ORDER BY id DESC"
 
     );
 

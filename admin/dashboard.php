@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "../models/destinationModel.php";
+require_once __DIR__ . "/../models/destinationModel.php";
 
 /* =========================
    ADMIN CHECK

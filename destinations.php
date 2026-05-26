@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "models/destinationModel.php";
+require_once __DIR__ . "/models/destinationModel.php";
 
 /* =========================
    GET DESTINATIONS
@@ -41,7 +41,7 @@ $destinations = getAllDestinations();
 <body>
 
     <!-- NAVBAR -->
-    <?php include 'includes/navbar.php'; ?>
+    <?php include __DIR__ . '/includes/navbar.php'; ?>
 
     <!-- DESTINATIONS -->
     <section class="container py-5">
@@ -124,7 +124,7 @@ $destinations = getAllDestinations();
     </section>
 
     <!-- FOOTER -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 
 </body>
 

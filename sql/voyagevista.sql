@@ -32,7 +32,9 @@ CREATE TABLE `destinations` (
   `name` varchar(150) NOT NULL,
   `country` varchar(150) NOT NULL,
   `description` text NOT NULL,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
