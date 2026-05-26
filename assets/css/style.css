@@ -9,8 +9,21 @@
 
 /* NAVBAR */
 .custom-navbar {
-    background-color: #0d6efd;
+    background-color: #045EF1;
     padding: 15px 0;
+}
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-logo-img {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 /* HERO */
@@ -68,16 +81,21 @@
 
 /* LOGIN */
 .login-body {
-    background: rgba(46, 164, 196, 0.244);
-    height: 100vh;
+    background: #FEFDFD;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
 .login-container {
     width: 100%;
     max-width: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 20px;
+    margin: auto;
 }
 
 .login-card {
