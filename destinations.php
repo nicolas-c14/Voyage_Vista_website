@@ -8,7 +8,9 @@ require_once __DIR__ . "/models/destinationModel.php";
    GET DESTINATIONS
 ========================= */
 
-$destinations = getAllDestinations();
+$search = trim($_GET['q'] ?? '');
+
+$destinations = getAllDestinations($search);
 
 ?>
 
@@ -56,10 +58,61 @@ $destinations = getAllDestinations();
                 Explorez les meilleures destinations disponibles.
             </p>
 
+            <form class="row g-2 justify-content-center mt-4"
+                  action="destinations.php"
+                  method="GET">
+
+                <div class="col-md-6">
+
+                    <input type="text"
+                           name="q"
+                           class="form-control form-control-lg"
+                           placeholder="Rechercher par nom, pays ou description"
+                           value="<?= htmlspecialchars($search); ?>">
+
+                </div>
+
+                <div class="col-md-auto">
+
+                    <button type="submit"
+                            class="btn btn-primary btn-lg">
+
+                        Rechercher
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <?php if ($search !== ''): ?>
+
+                <div class="alert alert-info mt-4 mb-0 d-inline-block">
+
+                    Résultats pour : <strong><?= htmlspecialchars($search); ?></strong>
+
+                </div>
+
+            <?php endif; ?>
+
         </div>
 
         <!-- DESTINATIONS GRID -->
         <div class="row g-4">
+
+            <?php if (empty($destinations)): ?>
+
+                <div class="col-12">
+
+                    <div class="alert alert-warning mb-0">
+
+                        Aucune destination ne correspond à votre recherche.
+
+                    </div>
+
+                </div>
+
+            <?php endif; ?>
 
             <?php foreach($destinations as $destination): ?>
 
