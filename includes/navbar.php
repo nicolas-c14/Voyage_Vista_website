@@ -2,6 +2,11 @@
 
     <div class="container">
 
+        <!-- LOGO -->
+        <img src="/VoyageVista/assets/images/VoyageVistaLogo.png"
+             width="40"
+             class="me-2">
+
         <a class="navbar-brand fw-bold"
            href="/VoyageVista/index.php">
 

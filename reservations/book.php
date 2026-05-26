@@ -83,6 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>
         Réserver
     </title>
+    <link rel="icon" href="assets/images/VoyageVistaLogo.png" type="image/png">
+
 
     <link rel="stylesheet"
           href="../assets/css/bootstrap.min.css">

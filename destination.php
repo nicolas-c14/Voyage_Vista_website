@@ -51,6 +51,8 @@ if (!$destination) {
         - VoyageVista
 
     </title>
+    <link rel="icon" href="assets/images/VoyageVistaLogo.png" type="image/png">
+
 
     <!-- Bootstrap -->
     <link rel="stylesheet"

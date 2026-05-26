@@ -11,6 +11,8 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Connexion - VoyageVista</title>
+    <link rel="icon" href="assets/images/VoyageVistaLogo.png" type="image/png">
+    
 
     <!-- Bootstrap -->
     <link rel="stylesheet"
@@ -23,6 +25,9 @@
 </head>
 
 <body class="login-body">
+
+    <!-- NAVBAR -->
+    <?php include 'includes/navbar.php'; ?>
 
     <div class="login-container">
 
