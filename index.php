@@ -166,7 +166,7 @@ $destinations = getAllDestinations($search);
         <div class="row align-items-center g-4">
 
             <div class="col-md-6">
-                <img src="assets/images/about.jpg" class="img-fluid rounded" alt="About Us">
+                <img src="assets/images/about-us.jpg" class="img-fluid rounded" alt="About Us">
             </div>
 
             <div class="col-md-6">

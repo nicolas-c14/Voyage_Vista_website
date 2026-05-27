@@ -45,11 +45,14 @@ $hasReservations = !empty($reservations);
     <link rel="stylesheet"
           href="../assets/css/bootstrap.min.css">
 
+    <link rel="stylesheet"
+          href="../assets/css/style.css">
+
 </head>
 
 <body>
 
-<div class="container py-5">
+<?php include __DIR__ . '/../includes/navbar.php'; ?>
 
     <h1 class="mb-5">
 

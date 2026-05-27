@@ -97,6 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
 
+<?php include __DIR__ . '/../includes/navbar.php'; ?>
+
 <div class="container py-5">
 
     <h1 class="mb-5">
