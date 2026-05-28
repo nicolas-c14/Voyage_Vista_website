@@ -1,14 +1,16 @@
+<?php require_once __DIR__ . '/../config/app.php'; ?>
+
 <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
 
     <div class="container">
 
         <!-- LOGO -->
-        <img src="/VoyageVista/assets/images/VoyageVistaLogo.png"
+        <img src="<?= APP_URL ?>/assets/images/VoyageVistaLogo.png"
              width="40"
              class="me-2">
 
         <a class="navbar-brand fw-bold"
-           href="/VoyageVista/index.php">
+           href="<?= APP_URL ?>/index.php">
 
             VoyageVista
 
@@ -32,7 +34,7 @@
                 <li class="nav-item">
 
                     <a class="nav-link"
-                       href="/VoyageVista/index.php">
+                       href="<?= APP_URL ?>/index.php">
 
                         Accueil
 
@@ -44,7 +46,7 @@
                 <li class="nav-item">
 
                     <a class="nav-link"
-                       href="/VoyageVista/destinations.php">
+                       href="<?= APP_URL ?>/destinations.php">
 
                         Destinations
 
@@ -58,7 +60,7 @@
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="/VoyageVista/reservations/my-reservations.php">
+                           href="<?= APP_URL ?>/reservations/my-reservations.php">
 
                             Mes réservations
 
@@ -77,7 +79,7 @@
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="/VoyageVista/admin/dashboard.php">
+                           href="<?= APP_URL ?>/admin/dashboard.php">
 
                             Admin
 
@@ -100,7 +102,7 @@
                         </span>
 
                         <a class="btn btn-danger"
-                           href="/VoyageVista/auth/logout.php">
+                           href="<?= APP_URL ?>/auth/logout.php">
 
                             Déconnexion
 
@@ -113,7 +115,7 @@
                     <li class="nav-item">
 
                         <a class="btn btn-light"
-                           href="/VoyageVista/login.php">
+                           href="<?= APP_URL ?>/login.php">
 
                             Se connecter
 

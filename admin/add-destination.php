@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "../models/destinationModel.php";
+require_once __DIR__ . "/../models/destinationModel.php";
 
 /* =========================
    ADMIN CHECK
@@ -96,6 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
+
+<?php include __DIR__ . '/../includes/navbar.php'; ?>
 
 <div class="container py-5">
 

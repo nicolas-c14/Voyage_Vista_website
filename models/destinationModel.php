@@ -6,14 +6,38 @@ require_once __DIR__ . "/../config/database.php";
    GET ALL DESTINATIONS
 ========================= */
 
-function getAllDestinations() {
+function getAllDestinations($search = null) {
 
     global $pdo;
+
+    if ($search !== null && $search !== '') {
+
+        $stmt = $pdo->prepare(
+
+            "SELECT * FROM destinations
+             WHERE name LIKE ?
+                OR country LIKE ?
+                OR description LIKE ?
+             ORDER BY id DESC"
+
+        );
+
+        $likeSearch = '%' . $search . '%';
+
+        $stmt->execute([
+            $likeSearch,
+            $likeSearch,
+            $likeSearch
+        ]);
+
+        return $stmt->fetchAll();
+
+    }
 
     $stmt = $pdo->prepare(
 
         "SELECT * FROM destinations
-         ORDER BY created_at DESC"
+         ORDER BY id DESC"
 
     );
 

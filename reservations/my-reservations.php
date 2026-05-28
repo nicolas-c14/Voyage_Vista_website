@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "../models/reservationModel.php";
+require_once __DIR__ . "/../models/reservationModel.php";
 
 /* =========================
    LOGIN CHECK
@@ -25,6 +25,8 @@ $reservations =
         $_SESSION["user_id"]
     );
 
+$hasReservations = !empty($reservations);
+
 ?>
 
 <!DOCTYPE html>
@@ -43,11 +45,14 @@ $reservations =
     <link rel="stylesheet"
           href="../assets/css/bootstrap.min.css">
 
+    <link rel="stylesheet"
+          href="../assets/css/style.css">
+
 </head>
 
 <body>
 
-<div class="container py-5">
+<?php include __DIR__ . '/../includes/navbar.php'; ?>
 
     <h1 class="mb-5">
 
@@ -56,6 +61,20 @@ $reservations =
     </h1>
 
     <div class="row g-4">
+
+        <?php if(!$hasReservations): ?>
+
+            <div class="col-12">
+
+                <div class="alert alert-info mb-0">
+
+                    Vous n'avez pas encore de réservation.
+
+                </div>
+
+            </div>
+
+        <?php endif; ?>
 
         <?php foreach($reservations as $reservation): ?>
 

@@ -2,9 +2,11 @@
 
 session_start();
 
-require_once "models/destinationModel.php";
+require_once __DIR__ . "/models/destinationModel.php";
 
-$destinations = getAllDestinations();
+$search = trim($_GET['q'] ?? '');
+
+$destinations = getAllDestinations($search);
 $randomDestinations = getRandomDestinations();
 
 ?>
@@ -27,7 +29,7 @@ $randomDestinations = getRandomDestinations();
 <body>
 
     <!-- NAVBAR -->
-    <?php include 'includes/navbar.php'; ?>
+    <?php include __DIR__ . '/includes/navbar.php'; ?>
 
     <!-- HERO SECTION -->
     <section class="hero-section">
@@ -47,13 +49,18 @@ $randomDestinations = getRandomDestinations();
             <!-- SEARCH BAR -->
             <div class="search-box mt-4">
 
-                <form id="searchForm" class="row g-2 justify-content-center">
+                <form id="searchForm"
+                      class="row g-2 justify-content-center"
+                      action="destinations.php"
+                      method="GET">
 
                     <div class="col-md-5">
                         <input type="text"
                             id="searchInput"
+                            name="q"
                             class="form-control form-control-lg"
-                            placeholder="Rechercher une destination">
+                            placeholder="Rechercher une destination"
+                            value="<?= htmlspecialchars($search); ?>">
                     </div>
 
                     <div class="col-md-2">
@@ -78,7 +85,31 @@ $randomDestinations = getRandomDestinations();
             <p>Choisissez votre prochaine aventure.</p>
         </div>
 
+        <?php if ($search !== ''): ?>
+
+            <div class="alert alert-info mb-4">
+
+                Résultats pour : <strong><?= htmlspecialchars($search); ?></strong>
+
+            </div>
+
+        <?php endif; ?>
+
         <div class="row g-4">
+
+            <?php if (empty($destinations)): ?>
+
+                <div class="col-12">
+
+                    <div class="alert alert-warning mb-0">
+
+                        Aucune destination ne correspond à votre recherche.
+
+                    </div>
+
+                </div>
+
+            <?php endif; ?>
 
             <?php foreach($randomDestinations as $destination): ?>
 
@@ -136,7 +167,7 @@ $randomDestinations = getRandomDestinations();
         <div class="row align-items-center g-4">
 
             <div class="col-md-6">
-                <img src="assets/images/about.png" class="img-fluid rounded" alt="About Us">
+                <img src="assets/images/about-us.jpg" class="img-fluid rounded" alt="About Us">
             </div>
 
             <div class="col-md-6">
@@ -182,7 +213,7 @@ $randomDestinations = getRandomDestinations();
 
 
     <!-- FOOTER -->
-    <?php include 'includes/footer.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 
     <!-- Bootstrap JS -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
