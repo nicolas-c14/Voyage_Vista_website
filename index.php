@@ -5,6 +5,7 @@ session_start();
 require_once "models/destinationModel.php";
 
 $destinations = getAllDestinations();
+$randomDestinations = getRandomDestinations();
 
 ?>
 
@@ -79,7 +80,7 @@ $destinations = getAllDestinations();
 
         <div class="row g-4">
 
-            <?php foreach($destinations as $destination): ?>
+            <?php foreach($randomDestinations as $destination): ?>
 
                 <div class="col-md-4">
 
@@ -135,7 +136,7 @@ $destinations = getAllDestinations();
         <div class="row align-items-center g-4">
 
             <div class="col-md-6">
-                <img src="assets/images/about.jpg" class="img-fluid rounded" alt="About Us">
+                <img src="assets/images/about.png" class="img-fluid rounded" alt="About Us">
             </div>
 
             <div class="col-md-6">
