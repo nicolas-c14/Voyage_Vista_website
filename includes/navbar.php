@@ -89,6 +89,25 @@
 
                 <?php endif; ?>
 
+                <!-- AGENCY -->
+                <?php if(
+                    isset($_SESSION["user_role"]) &&
+                    $_SESSION["user_role"] === "agency"
+                ): ?>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                        href="<?= APP_URL ?>/agency/dashboard.php">
+
+                            Agency
+
+                        </a>
+
+                    </li>
+
+                <?php endif; ?>
+
                 <!-- LOGIN / LOGOUT -->
                 <?php if(isset($_SESSION["user_id"])): ?>
 
