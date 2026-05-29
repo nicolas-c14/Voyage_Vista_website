@@ -2,6 +2,7 @@
 
 session_start();
 
+require_once __DIR__ . "/../config/app.php";
 require_once __DIR__ . "/../models/accommodationModel.php";
 require_once __DIR__ . "/../models/reservationModel.php";
 
@@ -11,7 +12,7 @@ require_once __DIR__ . "/../models/reservationModel.php";
 
 if (!isset($_SESSION["user_id"])) {
 
-    header("Location: ../login.php");
+    header("Location: " . APP_URL . "/login.php");
 
     exit;
 
@@ -90,27 +91,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("La date d'arrivée est invalide.");
     }
 
-    addReservation(
+$reservationId = addReservation(
 
-        $_SESSION["user_id"],
+    $_SESSION["user_id"],
 
-        $accommodationId,
+    $accommodationId,
 
-        $checkIn,
+    $checkIn,
 
-        $checkOut,
+    $checkOut,
 
-        $persons,
+    $persons,
 
-        $totalPrice
+    $totalPrice
 
-    );
+);
 
-    header(
-        "Location: my-reservations.php"
-    );
+header(
+    "Location: " . APP_URL . "/choose-transport.php?reservation_id=" . $reservationId
+);
 
-    exit;
+exit;
 
 }
 

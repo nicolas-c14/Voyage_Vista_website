@@ -21,7 +21,35 @@ SET time_zone = "+00:00";
 -- Base de données : `voyagevista`
 --
 
--- --------------------------------------------------------
+--
+-- Structure de la table `transports`
+--
+
+CREATE TABLE `transports` (
+  `id` int(11) NOT NULL,
+  `destination_id` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `departure_city` varchar(100) NOT NULL,
+  `arrival_city` varchar(100) NOT NULL,
+  `departure_date` datetime NOT NULL,
+  `arrival_date` datetime NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `available_seats` int(11) DEFAULT 0,
+  `image` varchar(255) DEFAULT 'transport.jpg',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `transports`
+--
+
+INSERT INTO `transports`
+(`id`, `destination_id`, `type`, `departure_city`, `arrival_city`, `departure_date`, `arrival_date`, `price`, `available_seats`, `image`, `created_at`) VALUES
+(1, 11, 'Avion', 'Paris', 'Tokyo', '2026-06-10 08:00:00', '2026-06-10 20:00:00', '899.99', 25, 'avion.jpg', CURRENT_TIMESTAMP),
+(2, 10, 'Train', 'Lyon', 'Barcelone', '2026-06-15 09:00:00', '2026-06-15 15:00:00', '120.00', 12, 'train.jpg', CURRENT_TIMESTAMP),
+(3, 8, 'Bus', 'Paris', 'Berlin', '2026-07-01 06:00:00', '2026-07-01 18:00:00', '79.99', 40, 'bus.jpg', CURRENT_TIMESTAMP),
+(4, 12, 'Avion', 'Paris', 'Londres', '2026-07-12 10:00:00', '2026-07-12 11:30:00', '199.99', 18, 'avion.jpg', CURRENT_TIMESTAMP),
+(5, 7, 'Avion', 'Marseille', 'Lisbonne', '2026-08-05 07:00:00', '2026-08-05 10:00:00', '249.99', 30, 'avion.jpg', CURRENT_TIMESTAMP);
 
 --
 -- Structure de la table `accommodations`
@@ -86,6 +114,7 @@ CREATE TABLE `reservations` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `accommodation_id` int(11) NOT NULL,
+  `transport_id` int(11) DEFAULT NULL,
   `check_in` date NOT NULL,
   `check_out` date NOT NULL,
   `persons` int(11) NOT NULL,
@@ -135,6 +164,14 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `role
 --
 
 --
+-- Index pour la table `transports`
+--
+
+ALTER TABLE `transports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `destination_id` (`destination_id`);
+
+--
 -- Index pour la table `accommodations`
 --
 ALTER TABLE `accommodations`
@@ -153,7 +190,8 @@ ALTER TABLE `destinations`
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `accommodation_id` (`accommodation_id`);
+  ADD KEY `accommodation_id` (`accommodation_id`),
+  ADD KEY `transport_id` (`transport_id`);
 
 --
 -- Index pour la table `users`
@@ -165,6 +203,13 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `transports`
+--
+
+ALTER TABLE `transports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `accommodations`
@@ -195,6 +240,16 @@ ALTER TABLE `users`
 --
 
 --
+-- Contraintes pour la table `transports`
+--
+
+ALTER TABLE `transports`
+  ADD CONSTRAINT `fk_transport_destination`
+  FOREIGN KEY (`destination_id`)
+  REFERENCES `destinations` (`id`)
+  ON DELETE CASCADE;
+  
+--
 -- Contraintes pour la table `accommodations`
 --
 ALTER TABLE `accommodations`
@@ -204,10 +259,20 @@ ALTER TABLE `accommodations`
 -- Contraintes pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `reservations_ibfk_3` FOREIGN KEY (`accommodation_id`) REFERENCES `accommodations` (`id`) ON DELETE CASCADE;
-COMMIT;
+  ADD CONSTRAINT `reservations_ibfk_1`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+  ON DELETE CASCADE,
 
+  ADD CONSTRAINT `reservations_ibfk_3`
+  FOREIGN KEY (`accommodation_id`)
+  REFERENCES `accommodations` (`id`)
+  ON DELETE CASCADE,
+
+  ADD CONSTRAINT `fk_reservation_transport`
+  FOREIGN KEY (`transport_id`)
+  REFERENCES `transports` (`id`)
+  ON DELETE SET NULL;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
