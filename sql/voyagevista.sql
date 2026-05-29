@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 29 mai 2026 à 10:35
+-- Généré le : ven. 29 mai 2026 à 11:16
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.3.1
 
@@ -112,10 +112,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `created_at`) VALUES
-(1, 'Nicolas', 'Copet', 'nicolascopet3@gmail.com', '$2y$10$BWfAPCzzlnoWhamha73AxO8jkNnRajjKX2XEkz2kLXL9tOEsNntlG', 'client', '2026-05-25 19:20:59'),
+(1, 'Nicolas', 'Copet', 'nicolascopet3@gmail.com', '$2y$10$BWfAPCzzlnoWhamha73AxO8jkNnRajjKX2XEkz2kLXL9tOEsNntlG', 'admin', '2026-05-25 19:20:59'),
 (2, 'Pablo', 'Escobar', 'pablo.e@gmail.com', '$2y$10$DQa3JjS2flLmdtX/bx9HPOJo0rPltr.45XQpWtgvFXtOE7.7ffzgO', 'client', '2026-05-25 19:23:15'),
 (3, 'Jerome', 'Pas', 'Jp@gmail.com', '$2y$10$8XqzoCvXnI8dbPdEapuk3u575UD7toyMYVcKWnZV4LkPGozP0vvGq', 'client', '2026-05-25 19:37:11'),
-(4, 'Ghali', 'Benharbit', 'g6b@gmail.com', '$2y$10$AmAiHviIC7PYVNcH8TxY.OTVhy29IxrbWGhKrFMym8k3UljNwSsnO', 'admin', '2026-05-26 21:48:23');
+(4, 'Ghali', 'Benharbit', 'g6b@gmail.com', '$2y$10$AmAiHviIC7PYVNcH8TxY.OTVhy29IxrbWGhKrFMym8k3UljNwSsnO', 'admin', '2026-05-26 21:48:23'),
+(6, 'Client', 'Client', 'client@test.com', '$2y$10$Du6hl49L06/Dpj3LRvtsMOmH9c26eEhUJSUpaypUWLkTiHrkVy.Cy', 'client', '2026-05-29 11:12:39'),
+(7, 'Admin', 'Admin', 'admin@test.com', '$2y$10$PwGigczwiMFoEfDSW9i5z./evxDCt2lhsn.vZV67Um31Y/kStQwPq', 'admin', '2026-05-29 11:13:20'),
+(8, 'Agency', 'Agency', 'agency@test.com', '$2y$10$hyLMgrieMsgu7BqvhSL/f.U.JQPfvA3.fzGRIg/b8r5fnuLU8utM.', 'agency', '2026-05-29 11:13:57');
 
 --
 -- Index pour les tables déchargées
@@ -169,13 +172,13 @@ ALTER TABLE `destinations`
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Contraintes pour les tables déchargées
