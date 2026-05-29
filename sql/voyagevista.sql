@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 29 mai 2026 à 11:16
+-- Généré le : ven. 29 mai 2026 à 12:44
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.3.1
 
@@ -86,10 +86,20 @@ CREATE TABLE `reservations` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `accommodation_id` int(11) NOT NULL,
-  `travel_date` date NOT NULL,
+  `check_in` date NOT NULL,
+  `check_out` date NOT NULL,
   `persons` int(11) NOT NULL,
+  `total_price` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `status` varchar(50) NOT NULL DEFAULT 'confirmée',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `reservations`
+--
+
+INSERT INTO `reservations` (`id`, `user_id`, `accommodation_id`, `check_in`, `check_out`, `persons`, `total_price`, `status`, `created_at`) VALUES
+(8, 7, 1, '2026-05-30', '2026-06-26', 3, '9720.00', 'confirmée', '2026-05-29 12:29:07');
 
 -- --------------------------------------------------------
 
@@ -172,7 +182,7 @@ ALTER TABLE `destinations`
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `users`

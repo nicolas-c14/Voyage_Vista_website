@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 
 require_once __DIR__ . "/../models/accommodationModel.php";
@@ -50,11 +47,48 @@ if (!$accommodation) {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $travelDate =
-        $_POST["travel_date"];
+    $checkIn =
+        $_POST["check_in"];
+
+    $checkOut =
+        $_POST["check_out"];
 
     $persons =
         intval($_POST["persons"]);
+
+    /* =========================
+    CALCUL TOTAL PRICE
+    ========================= */
+
+    $checkInDate =
+        new DateTime($checkIn);
+
+    $checkOutDate =
+        new DateTime($checkOut);
+
+    $interval =
+        $checkInDate->diff($checkOutDate);
+
+    $nights =
+        $interval->days;
+
+    $totalPrice =
+        $nights *
+        $accommodation["price_per_night"] *
+        $persons;
+    
+    /* =========================
+    Chechk-out after check-in
+    ========================= */
+    if ($checkOut <= $checkIn) {
+        die("La date de départ doit être après la date d'arrivée.");
+    }
+    if ($persons <= 0) {
+        die("Nombre de personnes invalide.");
+    }
+    if ($checkIn < date("Y-m-d")) {
+        die("La date d'arrivée est invalide.");
+    }
 
     addReservation(
 
@@ -62,9 +96,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $accommodationId,
 
-        $travelDate,
+        $checkIn,
 
-        $persons
+        $checkOut,
+
+        $persons,
+
+        $totalPrice
 
     );
 
@@ -114,19 +152,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <form method="POST">
 
-        <!-- DATE -->
+        <!-- CHECK IN -->
         <div class="mb-3">
 
             <label class="form-label">
-
-                Date du voyage
-
+                Date d'arrivée
             </label>
 
             <input type="date"
-                   name="travel_date"
-                   class="form-control"
-                   required>
+                name="check_in"
+                class="form-control"
+                required>
+
+        </div>
+
+        <!-- CHECK OUT -->
+        <div class="mb-3">
+
+            <label class="form-label">
+                Date de départ
+            </label>
+
+            <input type="date"
+                name="check_out"
+                class="form-control"
+                required>
 
         </div>
 
@@ -161,4 +211,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 </body>
 
-</html>
+</html> 

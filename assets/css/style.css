@@ -104,3 +104,30 @@
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
 }
+
+.card {
+
+    border: none;
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    transition: 0.3s ease;
+
+}
+
+.card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+
+}
+
+.card img {
+
+    height: 220px;
+
+    object-fit: cover;
+
+}
