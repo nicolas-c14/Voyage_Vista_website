@@ -60,6 +60,8 @@ $stmt->execute([
     $transportId
 ]);
 
-header("Location: " . APP_URL . "/reservations/my-reservations.php");
+header(
+    "Location: choose-activity.php?reservation_id=" . $reservationId
+);
 
 exit;

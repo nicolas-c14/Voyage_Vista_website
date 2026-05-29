@@ -52,6 +52,47 @@ INSERT INTO `transports`
 (5, 7, 'Avion', 'Marseille', 'Lisbonne', '2026-08-05 07:00:00', '2026-08-05 10:00:00', '249.99', 30, 'avion.jpg', CURRENT_TIMESTAMP);
 
 --
+-- Structure de la table `activities`
+--
+
+
+CREATE TABLE `activities` (
+  `id` int(11) NOT NULL,
+  `destination_id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `description` text NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `activities`
+--
+
+INSERT INTO `activities`
+(`id`, `destination_id`, `name`, `description`, `price`, `created_at`) VALUES
+(1, 11, 'Tour Eiffel', 'Visite guidée de la Tour Eiffel avec accès panoramique.', '45.00', CURRENT_TIMESTAMP),
+(2, 11, 'Croisière Seine', 'Croisière romantique sur la Seine.', '35.00', CURRENT_TIMESTAMP),
+(3, 10, 'Sagrada Familia', 'Visite de la célèbre basilique de Gaudí.', '50.00', CURRENT_TIMESTAMP),
+(4, 10, 'Camp Nou Experience', 'Visite du stade du FC Barcelone.', '40.00', CURRENT_TIMESTAMP),
+(5, 12, 'London Eye', 'Vue panoramique de Londres.', '38.00', CURRENT_TIMESTAMP),
+(6, 8, 'Mur de Berlin', 'Découverte historique du mur de Berlin.', '20.00', CURRENT_TIMESTAMP);
+
+--
+-- Structure de la table `reservation_activities`
+--
+
+CREATE TABLE `reservation_activities` (
+
+  `id` int(11) NOT NULL,
+
+  `reservation_id` int(11) NOT NULL,
+
+  `activity_id` int(11) NOT NULL
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Structure de la table `accommodations`
 --
 
@@ -172,6 +213,24 @@ ALTER TABLE `transports`
   ADD KEY `destination_id` (`destination_id`);
 
 --
+-- Index pour la table `reservation_activities`
+--
+
+ALTER TABLE `activities`
+ADD PRIMARY KEY (`id`),
+ADD KEY `destination_id` (`destination_id`);
+
+--
+-- Index pour la table `reservation_activities`
+--
+ALTER TABLE `reservation_activities`
+ADD PRIMARY KEY (`id`),
+ADD KEY `reservation_id` (`reservation_id`),
+ADD KEY `activity_id` (`activity_id`);
+
+
+
+--
 -- Index pour la table `accommodations`
 --
 ALTER TABLE `accommodations`
@@ -211,6 +270,25 @@ ALTER TABLE `users`
 ALTER TABLE `transports`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+
+--
+-- AUTO_INCREMENT pour la table `activities`
+--
+ALTER TABLE `activities`
+
+MODIFY `id`
+int(11) NOT NULL AUTO_INCREMENT;
+AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `reservation_activities`
+--
+
+ALTER TABLE `reservation_activities`
+
+MODIFY `id`
+int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `accommodations`
 --
@@ -248,6 +326,31 @@ ALTER TABLE `transports`
   FOREIGN KEY (`destination_id`)
   REFERENCES `destinations` (`id`)
   ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `activities`
+--
+ALTER TABLE `activities`
+ADD CONSTRAINT `fk_activity_destination`
+FOREIGN KEY (`destination_id`)
+REFERENCES `destinations` (`id`)
+ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `reservation_activities`
+--
+
+ALTER TABLE `reservation_activities`
+
+ADD CONSTRAINT `fk_ra_reservation`
+FOREIGN KEY (`reservation_id`)
+REFERENCES `reservations` (`id`)
+ON DELETE CASCADE,
+
+ADD CONSTRAINT `fk_ra_activity`
+FOREIGN KEY (`activity_id`)
+REFERENCES `activities` (`id`)
+ON DELETE CASCADE;
   
 --
 -- Contraintes pour la table `accommodations`
