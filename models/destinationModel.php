@@ -69,6 +69,26 @@ function getDestinationById($id) {
 };
 
 /* =========================
+   GET RANDOM DESTINATIONS
+========================= */
+
+function getRandomDestinations() {
+
+    global $pdo;
+
+    $stmt = $pdo->prepare(
+        "SELECT *
+         FROM destinations
+         ORDER BY RAND()
+         LIMIT 3"
+    );
+
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}
+
+/* =========================
    ADD DESTINATION
 ========================= */
 

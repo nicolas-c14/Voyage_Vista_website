@@ -7,6 +7,7 @@ require_once __DIR__ . "/models/destinationModel.php";
 $search = trim($_GET['q'] ?? '');
 
 $destinations = getAllDestinations($search);
+$randomDestinations = getRandomDestinations();
 
 ?>
 
@@ -110,7 +111,7 @@ $destinations = getAllDestinations($search);
 
             <?php endif; ?>
 
-            <?php foreach($destinations as $destination): ?>
+            <?php foreach($randomDestinations as $destination): ?>
 
                 <div class="col-md-4">
 

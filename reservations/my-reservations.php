@@ -2,7 +2,6 @@
 
 session_start();
 
-require_once __DIR__ . "/../config/app.php";
 require_once __DIR__ . "/../models/reservationModel.php";
 
 /* =========================
@@ -40,14 +39,14 @@ $hasReservations = !empty($reservations);
     <title>
         Mes réservations
     </title>
-        <link rel="icon" href="<?= APP_URL ?>/assets/images/VoyageVistaLogo.png" type="image/png">
+    <link rel="icon" href="assets/images/VoyageVistaLogo.png" type="image/png">
 
 
-        <link rel="stylesheet"
-            href="<?= APP_URL ?>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="../assets/css/bootstrap.min.css">
 
-        <link rel="stylesheet"
-            href="<?= APP_URL ?>/assets/css/style.css">
+    <link rel="stylesheet"
+          href="../assets/css/style.css">
 
 </head>
 
@@ -55,64 +54,88 @@ $hasReservations = !empty($reservations);
 
 <?php include __DIR__ . '/../includes/navbar.php'; ?>
 
-<div class="container my-5">
+    <h1 class="mb-5">
 
-    <h1 class="mb-4">Mes réservations</h1>
+        Mes réservations
 
-    <?php if(isset($_GET['deleted'])): ?>
-        <div class="alert alert-success">Réservation supprimée.</div>
-    <?php elseif(isset($_GET['error'])): ?>
-        <div class="alert alert-danger">Impossible de supprimer la réservation.</div>
-    <?php endif; ?>
+    </h1>
 
-    <?php if(!$hasReservations): ?>
+    <div class="row g-4">
 
-        <div class="alert alert-info">Vous n'avez pas encore de réservation.</div>
+        <?php if(!$hasReservations): ?>
 
-    <?php else: ?>
+            <div class="col-12">
 
-        <div class="row g-4">
+                <div class="alert alert-info mb-0">
 
-            <?php foreach($reservations as $reservation): ?>
-
-                <div class="col-md-4">
-
-                    <div class="card h-100 shadow-sm">
-
-                            <img src="<?= APP_URL ?>/assets/images/<?= htmlspecialchars($reservation["image"]) ?>"
-                             class="card-img-top" style="height:200px;object-fit:cover;">
-
-                        <div class="card-body d-flex flex-column">
-
-                            <h5 class="card-title mb-1">
-                                <?= htmlspecialchars($reservation["name"]) ?>
-                            </h5>
-
-                            <p class="text-muted mb-2"><?= htmlspecialchars($reservation["country"]) ?></p>
-
-                            <p class="mb-2">Date du voyage :<strong></strong> <?= htmlspecialchars($reservation["travel_date"]) ?></p>
-
-                            <p class="mb-3">Nombre de personne(s) :<strong></strong> <?= htmlspecialchars($reservation["persons"]) ?> personne(s)</p>
-
-                            <div class="mt-auto d-flex justify-content-between align-items-center">
-                                <a href="<?= APP_URL ?>/destination.php?id=<?= $reservation['destination_id'] ?>" class="btn btn-outline-primary btn-sm">Voir la destination</a>
-                                <form method="post" action="delete.php" onsubmit="return confirm('Supprimer cette réservation ?');">
-                                    <input type="hidden" name="id" value="<?= $reservation['id'] ?>">
-                                    <button class="btn btn-danger btn-sm">Supprimer</button>
-                                </form>
-                            </div>
-
-                        </div>
-
-                    </div>
+                    Vous n'avez pas encore de réservation.
 
                 </div>
 
-            <?php endforeach; ?>
+            </div>
 
-        </div>
+        <?php endif; ?>
 
-    <?php endif; ?>
+        <?php foreach($reservations as $reservation): ?>
+
+            <div class="col-md-4">
+
+                <div class="card h-100 shadow-sm">
+
+                    <img src="../assets/images/<?= $reservation["image"]; ?>"
+                         class="card-img-top">
+
+                    <div class="card-body">
+
+                        <h5>
+
+                            <?= $reservation["accommodation_name"]; ?>
+
+                        </h5>
+
+                        <p>
+
+                            <?= $reservation["destination_name"]; ?>    
+
+                        </p>
+
+                        <p>
+
+                            <?= $reservation["country"]; ?>
+
+                        </p>
+
+                        <p>
+
+                            📅
+                            <?= $reservation["travel_date"]; ?>
+
+                        </p>
+
+                        <p>
+
+                            👥
+                            <?= $reservation["persons"]; ?>
+                            personne(s)
+
+                        </p>
+
+                    </div>
+
+                    <a href="delete-reservation.php?id=<?= $reservation["id"]; ?>"
+                    class="btn btn-danger">
+
+                        Annuler
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        <?php endforeach; ?>
+
+    </div>
 
 </div>
 
