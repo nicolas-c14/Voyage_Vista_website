@@ -3,6 +3,7 @@
 session_start();
 
 require_once __DIR__ . "/models/destinationModel.php";
+require_once __DIR__ . "/models/accommodationModel.php";
 
 /* =========================
    CHECK ID
@@ -31,6 +32,15 @@ if (!$destination) {
     die("Destination inexistante.");
 
 }
+
+/* =========================
+   GET ACCOMMODATIONS
+========================= */
+
+$accommodations =
+    getAccommodationsByDestination(
+        $destination["id"]
+    );
 
 ?>
 
@@ -108,27 +118,7 @@ if (!$destination) {
 
                     À partir de
                     <?= $destination["price"]; ?> €
-                    
-                    <?php if(isset($_SESSION["user_id"])): ?>
-
-                        <a href="reservations/book.php?id=<?= $destination["id"]; ?>"
-                        class="btn btn-primary mt-4">
-
-                            Réserver
-
-                        </a>
-
-                    <?php else: ?>
-
-                        <a href="login.php"
-                        class="btn btn-primary mt-4">
-
-                            Connectez-vous pour réserver
-
-                        </a>
-
-                    <?php endif; ?>
-
+                  
                 </h3>
 
                 <a href="destinations.php"
@@ -139,6 +129,81 @@ if (!$destination) {
                 </a>
 
             </div>
+
+        </div>
+
+        <!-- ACCOMMODATIONS -->
+        <h2 class="mt-5 mb-4">
+
+            Hébergements disponibles
+
+        </h2>
+
+        <div class="row g-4">
+
+            <?php foreach($accommodations as $hotel): ?>
+
+                <div class="col-md-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <img src="assets/images/<?= $hotel["image"]; ?>"
+                            class="card-img-top">
+
+                        <div class="card-body">
+
+                            <h5>
+
+                                <?= $hotel["name"]; ?>
+
+                            </h5>
+
+                            <p>
+
+                                <?= $hotel["type"]; ?>
+
+                            </p>
+
+                            <p>
+
+                                <?= $hotel["description"]; ?>
+
+                            </p>
+
+                            <p class="fw-bold">
+
+                                <?= $hotel["price_per_night"]; ?> €
+                                / nuit
+
+                            </p>
+
+                            <?php if(isset($_SESSION["user_id"])): ?>
+
+                                <a href="reservations/book.php?accommodation_id=<?= $hotel["id"]; ?>"
+                                class="btn btn-primary">
+
+                                    Réserver
+
+                                </a>
+
+                            <?php else: ?>
+
+                                <a href="login.php"
+                                class="btn btn-primary mt-4">
+
+                                    Connectez-vous pour réserver
+
+                                </a>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <?php endforeach; ?>
 
         </div>
 

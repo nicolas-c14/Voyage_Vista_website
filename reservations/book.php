@@ -1,8 +1,11 @@
 <?php
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
-require_once __DIR__ . "/../models/destinationModel.php";
+require_once __DIR__ . "/../models/accommodationModel.php";
 require_once __DIR__ . "/../models/reservationModel.php";
 
 /* =========================
@@ -18,24 +21,26 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 /* =========================
-   GET DESTINATION
+   GET ACCOMMODATION
 ========================= */
 
-if (!isset($_GET["id"])) {
+if (!isset($_GET["accommodation_id"])) {
 
-    die("Destination invalide.");
+    die("Hébergement invalide.");
 
 }
 
-$destinationId =
-    intval($_GET["id"]);
+$accommodationId =
+    intval($_GET["accommodation_id"]);
 
-$destination =
-    getDestinationById($destinationId);
+$accommodation =
+    getAccommodationById(
+        $accommodationId
+    );
 
-if (!$destination) {
+if (!$accommodation) {
 
-    die("Destination introuvable.");
+    die("Hébergement introuvable.");
 
 }
 
@@ -55,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $_SESSION["user_id"],
 
-        $destinationId,
+        $accommodationId,
 
         $travelDate,
 
@@ -103,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <h1 class="mb-5">
 
         Réserver :
-        <?= $destination["name"]; ?>
+        <?= $accommodation["name"]; ?>
 
     </h1>
 

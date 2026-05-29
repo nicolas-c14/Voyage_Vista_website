@@ -89,9 +89,15 @@ $hasReservations = !empty($reservations);
 
                         <h5>
 
-                            <?= $reservation["name"]; ?>
+                            <?= $reservation["accommodation_name"]; ?>
 
                         </h5>
+
+                        <p>
+
+                            <?= $reservation["destination_name"]; ?>    
+
+                        </p>
 
                         <p>
 
@@ -115,6 +121,13 @@ $hasReservations = !empty($reservations);
                         </p>
 
                     </div>
+
+                    <a href="delete-reservation.php?id=<?= $reservation["id"]; ?>"
+                    class="btn btn-danger">
+
+                        Annuler
+
+                    </a>
 
                 </div>
 

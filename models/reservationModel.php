@@ -8,7 +8,7 @@ require_once __DIR__ . "/../config/database.php";
 
 function addReservation(
     $userId,
-    $destinationId,
+    $accommodationId,
     $travelDate,
     $persons
 ) {
@@ -20,7 +20,7 @@ function addReservation(
         "INSERT INTO reservations
         (
             user_id,
-            destination_id,
+            accommodation_id,
             travel_date,
             persons
         )
@@ -31,7 +31,7 @@ function addReservation(
 
     return $stmt->execute([
         $userId,
-        $destinationId,
+        $accommodationId,
         $travelDate,
         $persons
     ]);
@@ -49,21 +49,34 @@ function getReservationsByUser($userId) {
     $stmt = $pdo->prepare(
 
         "SELECT
+
             reservations.*,
-            destinations.name,
-            destinations.country,
-            destinations.image
+
+            accommodations.name
+            AS accommodation_name,
+
+            accommodations.image,
+
+            destinations.name
+            AS destination_name,
+
+            destinations.country
 
         FROM reservations
 
+        INNER JOIN accommodations
+
+        ON reservations.accommodation_id =
+        accommodations.id
+
         INNER JOIN destinations
 
-        ON reservations.destination_id =
-           destinations.id
+        ON accommodations.destination_id =
+        destinations.id
 
-        WHERE user_id = ?
+        WHERE reservations.user_id = ?
 
-        ORDER BY created_at DESC"
+        ORDER BY reservations.created_at DESC"
 
     );
 
@@ -72,3 +85,27 @@ function getReservationsByUser($userId) {
     return $stmt->fetchAll();
 
 }
+
+/* =========================
+   DELETE RESERVATION
+========================= */
+
+function deleteReservation($reservationId, $userId) {
+
+    global $pdo;
+
+    $stmt = $pdo->prepare(
+
+        "DELETE FROM reservations
+         WHERE id = ? AND user_id = ?"
+
+    );
+
+    return $stmt->execute([
+        $reservationId,
+        $userId
+    ]);
+
+}
+
+?>
