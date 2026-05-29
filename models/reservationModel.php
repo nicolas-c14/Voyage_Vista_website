@@ -9,8 +9,10 @@ require_once __DIR__ . "/../config/database.php";
 function addReservation(
     $userId,
     $accommodationId,
-    $travelDate,
-    $persons
+    $checkIn,
+    $checkOut,
+    $persons,
+    $totalPrice
 ) {
 
     global $pdo;
@@ -21,19 +23,22 @@ function addReservation(
         (
             user_id,
             accommodation_id,
-            travel_date,
-            persons
+            check_in,
+            check_out,
+            persons,
+            total_price
         )
 
-        VALUES (?, ?, ?, ?)"
-
+        VALUES (?, ?, ?, ?, ?, ?)"
     );
 
     return $stmt->execute([
         $userId,
         $accommodationId,
-        $travelDate,
-        $persons
+        $checkIn,
+        $checkOut,
+        $persons,
+        $totalPrice
     ]);
 
 }
@@ -82,7 +87,7 @@ function getReservationsByUser($userId) {
 
     $stmt->execute([$userId]);
 
-    return $stmt->fetchAll();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 }
 
