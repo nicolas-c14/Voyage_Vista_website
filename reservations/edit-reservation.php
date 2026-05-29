@@ -2,8 +2,8 @@
 
 session_start();
 
-require_once __DIR__ . "/../models/accommodationModel.php";
 require_once __DIR__ . "/../models/reservationModel.php";
+require_once __DIR__ . "/../models/accommodationModel.php";
 
 /* =========================
    LOGIN CHECK
@@ -18,28 +18,38 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 /* =========================
+   GET RESERVATION
+========================= */
+
+if (!isset($_GET["id"])) {
+
+    die("Réservation introuvable.");
+
+}
+
+$reservationId =
+    intval($_GET["id"]);
+
+$reservation =
+    getReservationById(
+        $reservationId,
+        $_SESSION["user_id"]
+    );
+
+if (!$reservation) {
+
+    die("Réservation inexistante.");
+
+}
+
+/* =========================
    GET ACCOMMODATION
 ========================= */
 
-if (!isset($_GET["accommodation_id"])) {
-
-    die("Hébergement invalide.");
-
-}
-
-$accommodationId =
-    intval($_GET["accommodation_id"]);
-
 $accommodation =
     getAccommodationById(
-        $accommodationId
+        $reservation["accommodation_id"]
     );
-
-if (!$accommodation) {
-
-    die("Hébergement introuvable.");
-
-}
 
 /* =========================
    SUBMIT
@@ -57,30 +67,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         intval($_POST["persons"]);
 
     /* =========================
-       DATE VALIDATION
+       DATE CHECK
     ========================= */
 
     if ($checkOut <= $checkIn) {
 
         $error =
-            "Les dates sont invalides.";
+            "Dates invalides.";
 
     }
 
     /* =========================
-       AVAILABILITY CHECK
+       AVAILABILITY
     ========================= */
 
     elseif (
         !isAccommodationAvailable(
-            $accommodationId,
+            $reservation["accommodation_id"],
             $checkIn,
-            $checkOut
+            $checkOut,
+            $reservationId
         )
     ) {
 
         $error =
-            "Cet hébergement n'est pas disponible pour ces dates.";
+            "Hébergement indisponible.";
 
     }
 
@@ -109,23 +120,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $persons;
 
         /* =========================
-           SAVE
+           UPDATE
         ========================= */
 
-        addReservation(
-
-            $_SESSION["user_id"],
-
-            $accommodationId,
-
+        updateReservation(
+            $reservationId,
             $checkIn,
-
             $checkOut,
-
             $persons,
-
             $totalPrice
-
         );
 
         header(
@@ -148,29 +151,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
 
     <title>
-        Réserver
+        Modifier réservation
     </title>
-    <link rel="icon" href="assets/images/VoyageVistaLogo.png" type="image/png">
-
 
     <link rel="stylesheet"
           href="../assets/css/bootstrap.min.css">
-
-    <link rel="stylesheet"
-          href="../assets/css/style.css">
 
 </head>
 
 <body>
 
-<?php include __DIR__ . '/../includes/navbar.php'; ?>
-
 <div class="container py-5">
 
     <h1 class="mb-5">
 
-        Réserver :
-        <?= $accommodation["name"]; ?>
+        Modifier réservation
 
     </h1>
 
@@ -190,13 +185,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="mb-3">
 
             <label class="form-label">
-                Date d'arrivée
+
+                Arrivée
+
             </label>
 
             <input type="date"
-                name="check_in"
-                class="form-control"
-                required>
+                   name="check_in"
+                   class="form-control"
+                   value="<?= $reservation["check_in"]; ?>"
+                   required>
 
         </div>
 
@@ -204,13 +202,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="mb-3">
 
             <label class="form-label">
-                Date de départ
+
+                Départ
+
             </label>
 
             <input type="date"
-                name="check_out"
-                class="form-control"
-                required>
+                   name="check_out"
+                   class="form-control"
+                   value="<?= $reservation["check_out"]; ?>"
+                   required>
 
         </div>
 
@@ -219,23 +220,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <label class="form-label">
 
-                Nombre de personnes
+                Personnes
 
             </label>
 
             <input type="number"
                    name="persons"
                    class="form-control"
+                   value="<?= $reservation["persons"]; ?>"
                    min="1"
                    required>
 
         </div>
 
-        <!-- BUTTON -->
         <button type="submit"
                 class="btn btn-primary">
 
-            Confirmer réservation
+            Sauvegarder
 
         </button>
 
@@ -245,4 +246,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 </body>
 
-</html> 
+</html>

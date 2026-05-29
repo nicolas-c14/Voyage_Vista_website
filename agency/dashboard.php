@@ -49,85 +49,92 @@ $accommodations =
 
 <?php include __DIR__ . '/../includes/navbar.php'; ?>
 
-<div class="container py-5">
+    <div class="container py-5">
 
-    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-5">
 
-        <h1>
-            Gestion des hébergements
-        </h1>
+            <h1>
+                Gestion des hébergements
+            </h1>
 
-        <a href="add-accommodation.php"
-           class="btn btn-primary">
+            <a href="add-accommodation.php"
+            class="btn btn-primary">
 
-            Ajouter un hébergement
+                Ajouter un hébergement
 
-        </a>
+            </a>
 
-    </div>
+            <a href="manage-reservations.php"
+            class="btn btn-outline-primary">
 
-    <div class="row g-4">
+                Gérer les réservations
 
-        <?php foreach($accommodations as $accommodation): ?>
+            </a>
 
-            <div class="col-md-4">
+        </div>
 
-                <div class="card h-100 shadow-sm">
+        <div class="row g-4">
 
-                    <img src="../assets/images/<?= $accommodation["image"]; ?>"
-                         class="card-img-top">
+            <?php foreach($accommodations as $accommodation): ?>
 
-                    <div class="card-body">
+                <div class="col-md-4">
 
-                        <h5>
+                    <div class="card h-100 shadow-sm">
 
-                            <?= $accommodation["name"]; ?>
+                        <img src="../assets/images/<?= $accommodation["image"]; ?>"
+                            class="card-img-top">
 
-                        </h5>
+                        <div class="card-body">
 
-                        <p>
+                            <h5>
 
-                            <?= $accommodation["type"]; ?>
+                                <?= $accommodation["name"]; ?>
 
-                        </p>
+                            </h5>
 
-                        <p>
+                            <p>
 
-                            <?= $accommodation["price_per_night"]; ?> €
-                            / nuit
+                                <?= $accommodation["type"]; ?>
 
-                        </p>
+                            </p>
 
+                            <p>
+
+                                <?= $accommodation["price_per_night"]; ?> €
+                                / nuit
+
+                            </p>
+
+                        </div>
+
+                        <div class="d-flex gap-2 mt-3">
+
+                            <a href="edit-accommodation.php?id=<?= $accommodation["id"]; ?>"
+                            class="btn btn-warning w-100">
+
+                                Modifier
+
+                            </a>
+
+                            <a href="delete-accommodation.php?id=<?= $accommodation["id"]; ?>"
+                            class="btn btn-danger w-100"
+                            onclick="return confirm('Supprimer cet hébergement ?')">
+
+                                Supprimer
+
+                            </a>
+
+                        </div>
+                    
                     </div>
 
-                    <div class="d-flex gap-2 mt-3">
-
-                        <a href="edit-accommodation.php?id=<?= $accommodation["id"]; ?>"
-                        class="btn btn-warning w-100">
-
-                            Modifier
-
-                        </a>
-
-                        <a href="delete-accommodation.php?id=<?= $accommodation["id"]; ?>"
-                        class="btn btn-danger w-100"
-                        onclick="return confirm('Supprimer cet hébergement ?')">
-
-                            Supprimer
-
-                        </a>
-
-                    </div>
-                
                 </div>
 
-            </div>
+            <?php endforeach; ?>
 
-        <?php endforeach; ?>
+        </div>
 
     </div>
-
-</div>
 
 </body>
 

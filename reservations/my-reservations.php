@@ -166,9 +166,39 @@ $hasReservations = !empty($reservations);
 
                                 📌 Statut :
                                 
-                                <span class="badge bg-success">
+                                <?php
 
-                                    <?= $reservation["status"]; ?>
+                                $statusClass = "bg-secondary";
+
+                                if ($reservation["status"] === "confirmed") {
+
+                                    $statusClass = "bg-success";
+
+                                }
+
+                                elseif ($reservation["status"] === "pending") {
+
+                                    $statusClass = "bg-warning";
+
+                                }
+
+                                elseif ($reservation["status"] === "cancelled") {
+
+                                    $statusClass = "bg-danger";
+
+                                }
+
+                                elseif ($reservation["status"] === "completed") {
+
+                                    $statusClass = "bg-primary";
+
+                                }
+
+                                ?>
+
+                                <span class="badge <?= $statusClass; ?>">
+
+                                    <?= ucfirst($reservation["status"]); ?>
 
                                 </span>
 
@@ -177,6 +207,13 @@ $hasReservations = !empty($reservations);
                         </div>
 
                         <div class="card-footer bg-white border-0">
+
+                            <a href="edit-reservation.php?id=<?= $reservation["id"]; ?>"
+                            class="btn btn-outline-primary w-100 mb-2">
+
+                                Modifier
+
+                            </a>
 
                             <a href="delete-reservation.php?id=<?= $reservation["id"]; ?>"
                             class="btn btn-outline-danger w-100">
