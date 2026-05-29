@@ -70,5 +70,18 @@ function getReservationsByUser($userId) {
     $stmt->execute([$userId]);
 
     return $stmt->fetchAll();
+}
 
+/* =========================
+   DELETE RESERVATION
+   Only allow owner to delete their reservation
+========================= */
+function deleteReservation($id, $userId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare(
+        "DELETE FROM reservations WHERE id = ? AND user_id = ?"
+    );
+
+    return $stmt->execute([$id, $userId]);
 }
