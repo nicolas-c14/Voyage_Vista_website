@@ -122,19 +122,34 @@ $hasReservations = !empty($reservations);
                             <h5>
 
                                 <?= $reservation["accommodation_name"]; ?>
-
                             </h5>
 
                             <p>
+                                <?= $reservation["destination_name"]; ?>
+                            </p>
 
-                                <?= $reservation["destination_name"]; ?>    
+                            <?php if($reservation["transport_type"]): ?>
+
+                            <p class="mt-2">
+
+                                ✈ Transport :
+
+                                <?= $reservation["transport_type"]; ?>
+
+                                <br>
+
+                                <?= $reservation["departure_city"]; ?>
+
+                                →
+
+                                <?= $reservation["arrival_city"]; ?>
 
                             </p>
 
+                            <?php endif; ?>
+
                             <p>
-
                                 <?= $reservation["country"]; ?>
-
                             </p>
 
                             <p>

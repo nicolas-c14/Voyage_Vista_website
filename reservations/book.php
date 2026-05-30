@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+require_once __DIR__ . "/../config/app.php";
 require_once __DIR__ . "/../models/accommodationModel.php";
 require_once __DIR__ . "/../models/reservationModel.php";
 require_once __DIR__ . "/../models/cartModel.php";
@@ -8,7 +10,7 @@ require_once __DIR__ . "/../models/cartModel.php";
    LOGIN CHECK
 ========================= */
 if (!isset($_SESSION["user_id"])) {
-    header("Location: ../login.php");
+    header("Location: " . APP_URL . "/login.php");
     exit;
 }
 
@@ -50,6 +52,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("La date d'arrivée est invalide.");
     }
 
+    /* =========================
+    CALCUL TOTAL PRICE
+    ========================= */
+    $checkInDate  = new DateTime($checkIn);
+    $checkOutDate = new DateTime($checkOut);
+    $interval     = $checkInDate->diff($checkOutDate);
+    $nights       = $interval->days;
+    $totalPrice   = $nights *
+                    $accommodation["price_per_night"] *
+                    $persons;
+
     if ($action === "cart") {
         /* =========================
         AJOUT AU PANIER
@@ -61,22 +74,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $checkOut,
             $persons
         );
-        header("Location: ../cart/index.php?added=1");
+        header("Location: " . APP_URL . "/cart/index.php?added=1");
         exit;
     }
 
     /* =========================
-    RÉSERVATION DIRECTE (CALCUL TOTAL PRICE)
+    RÉSERVATION DIRECTE
     ========================= */
-    $checkInDate  = new DateTime($checkIn);
-    $checkOutDate = new DateTime($checkOut);
-    $interval     = $checkInDate->diff($checkOutDate);
-    $nights       = $interval->days;
-    $totalPrice   = $nights *
-                    $accommodation["price_per_night"] *
-                    $persons;
-
-    addReservation(
+    $reservationId = addReservation(
         $_SESSION["user_id"],
         $accommodationId,
         $checkIn,
@@ -84,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $persons,
         $totalPrice
     );
-    header("Location: my-reservations.php");
+    header("Location: " . APP_URL . "/choose-transport.php?reservation_id=" . $reservationId);
     exit;
 }
 ?>
