@@ -1,4 +1,17 @@
-<?php require_once __DIR__ . '/../config/app.php'; ?>
+<?php 
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . "/../models/notificationModel.php"; 
+$notificationCount = 0;
+
+if(isset($_SESSION["user_id"])) {
+
+    $notificationCount =
+        countUnreadNotifications(
+            $_SESSION["user_id"]
+        );
+
+}
+?>
 
 <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
 
@@ -115,8 +128,13 @@
 
                         <span class="text-white me-3">
 
-                            Bonjour
-                            <?= $_SESSION["user_name"]; ?>
+                            <a href="/VoyageVista/profile/dashboard.php"
+                            class="text-white text-decoration-none me-3">
+
+                                Bonjour
+                                <?= $_SESSION["user_name"]; ?>
+
+                            </a>
 
                         </span>
 
@@ -124,6 +142,23 @@
                            href="<?= APP_URL ?>/auth/logout.php">
 
                             Déconnexion
+
+                        </a>
+
+                        <a class="nav-link"
+                        href="/VoyageVista/notifications/index.php">
+
+                            Notifications
+
+                            <?php if($notificationCount > 0): ?>
+
+                                <span class="badge bg-danger">
+
+                                    <?= $notificationCount; ?>
+
+                                </span>
+
+                            <?php endif; ?>
 
                         </a>
 

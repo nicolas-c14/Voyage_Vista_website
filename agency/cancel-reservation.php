@@ -2,7 +2,8 @@
 
 session_start();
 
-require_once "../models/reservationModel.php";
+require_once __DIR__ . "/../models/reservationModel.php";
+require_once __DIR__ . "/../models/notificationModel.php";
 
 if(
     !isset($_SESSION["user_role"])
@@ -13,9 +14,24 @@ if(
 
 $id = intval($_GET["id"]);
 
+$reservation =
+    getReservationByIdAgency($id);
+
 updateReservationStatus(
     $id,
     "cancelled"
+);
+
+createNotification(
+
+    $reservation["user_id"],
+
+    "Réservation annulée",
+
+    "Votre réservation pour "
+    . $reservation["accommodation_name"]
+    . " a été annulée."
+
 );
 
 header(

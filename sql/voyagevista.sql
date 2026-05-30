@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 29 mai 2026 à 12:44
+-- Généré le : sam. 30 mai 2026 à 09:44
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.3.1
 
@@ -44,7 +44,8 @@ CREATE TABLE `accommodations` (
 INSERT INTO `accommodations` (`id`, `destination_id`, `name`, `type`, `description`, `price_per_night`, `image`) VALUES
 (1, 11, 'Hotel Paris Centre', 'Hôtel', 'Hôtel 4 étoiles au centre de Paris', '120.00', 'paris-hotel.jpg'),
 (2, 12, 'London Bridge Rooms', 'Auberge', 'Auberge moderne proche du centre', '90.00', 'london-hotel.jpg'),
-(3, 10, 'Barcelona Beach Hotel', 'Hôtel', 'Hôtel avec vue sur mer', '140.00', 'barcelona-hotel.jpg');
+(3, 10, 'Barcelona Beach Hotel', 'Hôtel', 'Hôtel avec vue sur mer', '140.00', 'barcelona-hotel.jpg'),
+(4, 11, 'Hilton Paris', 'Hôtel', 'Hôtel magnifique', '180.00', '1780063896_téléchargement.jpg');
 
 -- --------------------------------------------------------
 
@@ -79,6 +80,28 @@ INSERT INTO `destinations` (`id`, `name`, `country`, `description`, `image`, `pr
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `is_read` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `user_id`, `title`, `message`, `is_read`, `created_at`) VALUES
+(1, 1, 'Réservation annulée', 'Votre réservation pour Barcelona Beach Hotel a été annulée.', 1, '2026-05-30 09:41:39');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `reservations`
 --
 
@@ -99,7 +122,7 @@ CREATE TABLE `reservations` (
 --
 
 INSERT INTO `reservations` (`id`, `user_id`, `accommodation_id`, `check_in`, `check_out`, `persons`, `total_price`, `status`, `created_at`) VALUES
-(8, 7, 1, '2026-05-30', '2026-06-26', 3, '9720.00', 'confirmée', '2026-05-29 12:29:07');
+(1, 1, 3, '2026-05-31', '2026-06-04', 1, '560.00', 'cancelled', '2026-05-30 09:13:54');
 
 -- --------------------------------------------------------
 
@@ -148,6 +171,13 @@ ALTER TABLE `destinations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Index pour la table `reservations`
 --
 ALTER TABLE `reservations`
@@ -170,7 +200,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `accommodations`
 --
 ALTER TABLE `accommodations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `destinations`
@@ -179,10 +209,16 @@ ALTER TABLE `destinations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `users`
@@ -199,6 +235,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `accommodations`
   ADD CONSTRAINT `accommodations_ibfk_1` FOREIGN KEY (`destination_id`) REFERENCES `destinations` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `reservations`

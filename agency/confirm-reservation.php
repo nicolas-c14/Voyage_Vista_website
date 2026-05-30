@@ -2,7 +2,8 @@
 
 session_start();
 
-require_once "../models/reservationModel.php";
+require_once __DIR__ . "/../models/reservationModel.php";
+require_once __DIR__ . "/../models/notificationModel.php";
 
 if(
     !isset($_SESSION["user_role"])
@@ -13,9 +14,25 @@ if(
 
 $id = intval($_GET["id"]);
 
+$reservation =
+    getReservationByIdAgency($id);
+
 updateReservationStatus(
     $id,
     "confirmed"
+);
+
+
+createNotification(
+
+    $reservation["user_id"],
+
+    "Réservation confirmée",
+
+    "Votre réservation pour "
+    . $reservation["accommodation_name"]
+    . " a été confirmée."
+
 );
 
 header(

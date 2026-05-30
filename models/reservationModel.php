@@ -326,4 +326,42 @@ function updateReservationStatus(
 
 }
 
+/* =========================
+   GET RESERVATION AGENCY
+========================= */
+
+function getReservationByIdAgency(
+    $reservationId
+) {
+
+    global $pdo;
+
+    $stmt = $pdo->prepare(
+
+        "SELECT
+
+            reservations.*,
+
+            accommodations.name
+            AS accommodation_name
+
+        FROM reservations
+
+        INNER JOIN accommodations
+
+        ON reservations.accommodation_id =
+           accommodations.id
+
+        WHERE reservations.id = ?"
+
+    );
+
+    $stmt->execute([
+        $reservationId
+    ]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+
+}
+
 ?>
