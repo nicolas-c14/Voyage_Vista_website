@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 29 mai 2026 à 12:44
+-- Généré le : sam. 30 mai 2026 à 12:15
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.3.1
 
@@ -21,76 +21,7 @@ SET time_zone = "+00:00";
 -- Base de données : `voyagevista`
 --
 
---
--- Structure de la table `transports`
---
-
-CREATE TABLE `transports` (
-  `id` int(11) NOT NULL,
-  `destination_id` int(11) NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `departure_city` varchar(100) NOT NULL,
-  `arrival_city` varchar(100) NOT NULL,
-  `departure_date` datetime NOT NULL,
-  `arrival_date` datetime NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `available_seats` int(11) DEFAULT 0,
-  `image` varchar(255) DEFAULT 'transport.jpg',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `transports`
---
-
-INSERT INTO `transports`
-(`id`, `destination_id`, `type`, `departure_city`, `arrival_city`, `departure_date`, `arrival_date`, `price`, `available_seats`, `image`, `created_at`) VALUES
-(1, 11, 'Avion', 'Paris', 'Tokyo', '2026-06-10 08:00:00', '2026-06-10 20:00:00', '899.99', 25, 'avion.jpg', CURRENT_TIMESTAMP),
-(2, 10, 'Train', 'Lyon', 'Barcelone', '2026-06-15 09:00:00', '2026-06-15 15:00:00', '120.00', 12, 'train.jpg', CURRENT_TIMESTAMP),
-(3, 8, 'Bus', 'Paris', 'Berlin', '2026-07-01 06:00:00', '2026-07-01 18:00:00', '79.99', 40, 'bus.jpg', CURRENT_TIMESTAMP),
-(4, 12, 'Avion', 'Paris', 'Londres', '2026-07-12 10:00:00', '2026-07-12 11:30:00', '199.99', 18, 'avion.jpg', CURRENT_TIMESTAMP),
-(5, 7, 'Avion', 'Marseille', 'Lisbonne', '2026-08-05 07:00:00', '2026-08-05 10:00:00', '249.99', 30, 'avion.jpg', CURRENT_TIMESTAMP);
-
---
--- Structure de la table `activities`
---
-
-
-CREATE TABLE `activities` (
-  `id` int(11) NOT NULL,
-  `destination_id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
-  `description` text NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `activities`
---
-
-INSERT INTO `activities`
-(`id`, `destination_id`, `name`, `description`, `price`, `created_at`) VALUES
-(1, 11, 'Tour Eiffel', 'Visite guidée de la Tour Eiffel avec accès panoramique.', '45.00', CURRENT_TIMESTAMP),
-(2, 11, 'Croisière Seine', 'Croisière romantique sur la Seine.', '35.00', CURRENT_TIMESTAMP),
-(3, 10, 'Sagrada Familia', 'Visite de la célèbre basilique de Gaudí.', '50.00', CURRENT_TIMESTAMP),
-(4, 10, 'Camp Nou Experience', 'Visite du stade du FC Barcelone.', '40.00', CURRENT_TIMESTAMP),
-(5, 12, 'London Eye', 'Vue panoramique de Londres.', '38.00', CURRENT_TIMESTAMP),
-(6, 8, 'Mur de Berlin', 'Découverte historique du mur de Berlin.', '20.00', CURRENT_TIMESTAMP);
-
---
--- Structure de la table `reservation_activities`
---
-
-CREATE TABLE `reservation_activities` (
-
-  `id` int(11) NOT NULL,
-
-  `reservation_id` int(11) NOT NULL,
-
-  `activity_id` int(11) NOT NULL
-
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `accommodations`
@@ -113,7 +44,51 @@ CREATE TABLE `accommodations` (
 INSERT INTO `accommodations` (`id`, `destination_id`, `name`, `type`, `description`, `price_per_night`, `image`) VALUES
 (1, 11, 'Hotel Paris Centre', 'Hôtel', 'Hôtel 4 étoiles au centre de Paris', '120.00', 'paris-hotel.jpg'),
 (2, 12, 'London Bridge Rooms', 'Auberge', 'Auberge moderne proche du centre', '90.00', 'london-hotel.jpg'),
-(3, 10, 'Barcelona Beach Hotel', 'Hôtel', 'Hôtel avec vue sur mer', '140.00', 'barcelona-hotel.jpg');
+(3, 10, 'Barcelona Beach Hotel', 'Hôtel', 'Hôtel avec vue sur mer', '140.00', 'barcelona-hotel.jpg'),
+(4, 11, 'Hilton Paris', 'Hôtel', 'Hôtel magnifique', '180.00', '1780063896_téléchargement.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `activities`
+--
+
+CREATE TABLE `activities` (
+  `id` int(11) NOT NULL,
+  `destination_id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `description` text NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `activities`
+--
+
+INSERT INTO `activities` (`id`, `destination_id`, `name`, `description`, `price`, `created_at`) VALUES
+(1, 11, 'Tour Eiffel', 'Visite guidée de la Tour Eiffel avec accès panoramique.', '45.00', '2026-05-30 11:41:46'),
+(2, 11, 'Croisière Seine', 'Croisière romantique sur la Seine.', '35.00', '2026-05-30 11:41:46'),
+(3, 10, 'Sagrada Familia', 'Visite de la célèbre basilique de Gaudí.', '50.00', '2026-05-30 11:41:46'),
+(4, 10, 'Camp Nou Experience', 'Visite du stade du FC Barcelone.', '40.00', '2026-05-30 11:41:46'),
+(5, 12, 'London Eye', 'Vue panoramique de Londres.', '38.00', '2026-05-30 11:41:46'),
+(6, 8, 'Mur de Berlin', 'Découverte historique du mur de Berlin.', '20.00', '2026-05-30 11:41:46');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cart_items`
+--
+
+CREATE TABLE `cart_items` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `accommodation_id` int(11) NOT NULL,
+  `check_in` date NOT NULL,
+  `check_out` date NOT NULL,
+  `persons` int(11) NOT NULL,
+  `added_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -148,6 +123,21 @@ INSERT INTO `destinations` (`id`, `name`, `country`, `description`, `image`, `pr
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `is_read` tinyint(1) DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `reservations`
 --
 
@@ -164,12 +154,48 @@ CREATE TABLE `reservations` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Déchargement des données de la table `reservations`
+-- Structure de la table `reservation_activities`
 --
 
-INSERT INTO `reservations` (`id`, `user_id`, `accommodation_id`, `check_in`, `check_out`, `persons`, `total_price`, `status`, `created_at`) VALUES
-(8, 7, 1, '2026-05-30', '2026-06-26', 3, '9720.00', 'confirmée', '2026-05-29 12:29:07');
+CREATE TABLE `reservation_activities` (
+  `id` int(11) NOT NULL,
+  `reservation_id` int(11) NOT NULL,
+  `activity_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `transports`
+--
+
+CREATE TABLE `transports` (
+  `id` int(11) NOT NULL,
+  `destination_id` int(11) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `departure_city` varchar(100) NOT NULL,
+  `arrival_city` varchar(100) NOT NULL,
+  `departure_date` datetime NOT NULL,
+  `arrival_date` datetime NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `available_seats` int(11) DEFAULT '0',
+  `image` varchar(255) DEFAULT 'transport.jpg',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `transports`
+--
+
+INSERT INTO `transports` (`id`, `destination_id`, `type`, `departure_city`, `arrival_city`, `departure_date`, `arrival_date`, `price`, `available_seats`, `image`, `created_at`) VALUES
+(1, 11, 'Avion', 'Paris', 'Tokyo', '2026-06-10 08:00:00', '2026-06-10 20:00:00', '899.99', 23, 'avion.jpg', '2026-05-30 11:41:46'),
+(2, 10, 'Train', 'Lyon', 'Barcelone', '2026-06-15 09:00:00', '2026-06-15 15:00:00', '120.00', 12, 'train.jpg', '2026-05-30 11:41:46'),
+(3, 8, 'Bus', 'Paris', 'Berlin', '2026-07-01 06:00:00', '2026-07-01 18:00:00', '79.99', 40, 'bus.jpg', '2026-05-30 11:41:46'),
+(4, 12, 'Avion', 'Paris', 'Londres', '2026-07-12 10:00:00', '2026-07-12 11:30:00', '199.99', 18, 'avion.jpg', '2026-05-30 11:41:46'),
+(5, 7, 'Avion', 'Marseille', 'Lisbonne', '2026-08-05 07:00:00', '2026-08-05 10:00:00', '249.99', 30, 'avion.jpg', '2026-05-30 11:41:46');
 
 -- --------------------------------------------------------
 
@@ -205,32 +231,6 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `role
 --
 
 --
--- Index pour la table `transports`
---
-
-ALTER TABLE `transports`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `destination_id` (`destination_id`);
-
---
--- Index pour la table `reservation_activities`
---
-
-ALTER TABLE `activities`
-ADD PRIMARY KEY (`id`),
-ADD KEY `destination_id` (`destination_id`);
-
---
--- Index pour la table `reservation_activities`
---
-ALTER TABLE `reservation_activities`
-ADD PRIMARY KEY (`id`),
-ADD KEY `reservation_id` (`reservation_id`),
-ADD KEY `activity_id` (`activity_id`);
-
-
-
---
 -- Index pour la table `accommodations`
 --
 ALTER TABLE `accommodations`
@@ -238,10 +238,31 @@ ALTER TABLE `accommodations`
   ADD KEY `destination_id` (`destination_id`);
 
 --
+-- Index pour la table `activities`
+--
+ALTER TABLE `activities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `destination_id` (`destination_id`);
+
+--
+-- Index pour la table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Index pour la table `destinations`
 --
 ALTER TABLE `destinations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Index pour la table `reservations`
@@ -251,6 +272,21 @@ ALTER TABLE `reservations`
   ADD KEY `user_id` (`user_id`),
   ADD KEY `accommodation_id` (`accommodation_id`),
   ADD KEY `transport_id` (`transport_id`);
+
+--
+-- Index pour la table `reservation_activities`
+--
+ALTER TABLE `reservation_activities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reservation_id` (`reservation_id`),
+  ADD KEY `activity_id` (`activity_id`);
+
+--
+-- Index pour la table `transports`
+--
+ALTER TABLE `transports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `destination_id` (`destination_id`);
 
 --
 -- Index pour la table `users`
@@ -264,35 +300,21 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT pour la table `transports`
+-- AUTO_INCREMENT pour la table `accommodations`
 --
-
-ALTER TABLE `transports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+ALTER TABLE `accommodations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `activities`
 --
 ALTER TABLE `activities`
-
-MODIFY `id`
-int(11) NOT NULL AUTO_INCREMENT,
-AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT pour la table `reservation_activities`
+-- AUTO_INCREMENT pour la table `cart_items`
 --
-
-ALTER TABLE `reservation_activities`
-
-MODIFY `id`
-int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `accommodations`
---
-ALTER TABLE `accommodations`
+ALTER TABLE `cart_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -302,10 +324,28 @@ ALTER TABLE `destinations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT pour la table `reservation_activities`
+--
+ALTER TABLE `reservation_activities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `transports`
+--
+ALTER TABLE `transports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `users`
@@ -318,64 +358,45 @@ ALTER TABLE `users`
 --
 
 --
--- Contraintes pour la table `transports`
---
-
-ALTER TABLE `transports`
-  ADD CONSTRAINT `fk_transport_destination`
-  FOREIGN KEY (`destination_id`)
-  REFERENCES `destinations` (`id`)
-  ON DELETE CASCADE;
-
---
--- Contraintes pour la table `activities`
---
-ALTER TABLE `activities`
-ADD CONSTRAINT `fk_activity_destination`
-FOREIGN KEY (`destination_id`)
-REFERENCES `destinations` (`id`)
-ON DELETE CASCADE;
-
---
--- Contraintes pour la table `reservation_activities`
---
-
-ALTER TABLE `reservation_activities`
-
-ADD CONSTRAINT `fk_ra_reservation`
-FOREIGN KEY (`reservation_id`)
-REFERENCES `reservations` (`id`)
-ON DELETE CASCADE,
-
-ADD CONSTRAINT `fk_ra_activity`
-FOREIGN KEY (`activity_id`)
-REFERENCES `activities` (`id`)
-ON DELETE CASCADE;
-  
---
 -- Contraintes pour la table `accommodations`
 --
 ALTER TABLE `accommodations`
   ADD CONSTRAINT `accommodations_ibfk_1` FOREIGN KEY (`destination_id`) REFERENCES `destinations` (`id`) ON DELETE CASCADE;
 
 --
+-- Contraintes pour la table `activities`
+--
+ALTER TABLE `activities`
+  ADD CONSTRAINT `fk_activity_destination` FOREIGN KEY (`destination_id`) REFERENCES `destinations` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Contraintes pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_1`
-  FOREIGN KEY (`user_id`)
-  REFERENCES `users` (`id`)
-  ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_reservation_transport` FOREIGN KEY (`transport_id`) REFERENCES `transports` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reservations_ibfk_3` FOREIGN KEY (`accommodation_id`) REFERENCES `accommodations` (`id`) ON DELETE CASCADE;
 
-  ADD CONSTRAINT `reservations_ibfk_3`
-  FOREIGN KEY (`accommodation_id`)
-  REFERENCES `accommodations` (`id`)
-  ON DELETE CASCADE,
+--
+-- Contraintes pour la table `reservation_activities`
+--
+ALTER TABLE `reservation_activities`
+  ADD CONSTRAINT `fk_ra_activity` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_ra_reservation` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`id`) ON DELETE CASCADE;
 
-  ADD CONSTRAINT `fk_reservation_transport`
-  FOREIGN KEY (`transport_id`)
-  REFERENCES `transports` (`id`)
-  ON DELETE SET NULL;
+--
+-- Contraintes pour la table `transports`
+--
+ALTER TABLE `transports`
+  ADD CONSTRAINT `fk_transport_destination` FOREIGN KEY (`destination_id`) REFERENCES `destinations` (`id`) ON DELETE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

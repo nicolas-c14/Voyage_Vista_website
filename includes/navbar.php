@@ -1,6 +1,17 @@
-<?php
+<?php 
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../models/cartModel.php';
+require_once __DIR__ . "/../models/notificationModel.php"; 
+$notificationCount = 0;
+
+if(isset($_SESSION["user_id"])) {
+
+    $notificationCount =
+        countUnreadNotifications(
+            $_SESSION["user_id"]
+        );
+
+}
 
 $cartCount = 0;
 if (isset($_SESSION["user_id"])) {
@@ -92,13 +103,38 @@ if (isset($_SESSION["user_id"])) {
                 <?php if(isset($_SESSION["user_id"])): ?>
                     <li class="nav-item d-flex align-items-center">
                         <span class="text-white me-3">
-                            Bonjour
-                            <?= $_SESSION["user_name"]; ?>
+
+                            <a href="/VoyageVista/profile/dashboard.php"
+                            class="text-white text-decoration-none me-3">
+
+                                Bonjour
+                                <?= $_SESSION["user_name"]; ?>
+
+                            </a>
+
                         </span>
                         <a class="btn btn-danger"
                            href="<?= APP_URL ?>/auth/logout.php">
                             Déconnexion
                         </a>
+
+                        <a class="nav-link"
+                        href="/VoyageVista/notifications/index.php">
+
+                            Notifications
+
+                            <?php if($notificationCount > 0): ?>
+
+                                <span class="badge bg-danger">
+
+                                    <?= $notificationCount; ?>
+
+                                </span>
+
+                            <?php endif; ?>
+
+                        </a>
+
                     </li>
                 <?php else: ?>
                     <li class="nav-item">

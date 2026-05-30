@@ -39,7 +39,7 @@ $hasReservations = !empty($reservations);
     <title>
         Mes réservations
     </title>
-    <link rel="icon" href="assets/images/VoyageVistaLogo.png" type="image/png">
+    <link rel="icon" href="../assets/images/VoyageVistaLogo.png" type="image/png">
 
 
     <link rel="stylesheet"
@@ -193,9 +193,39 @@ $hasReservations = !empty($reservations);
 
                                 📌 Statut :
                                 
-                                <span class="badge bg-success">
+                                <?php
 
-                                    <?= $reservation["status"]; ?>
+                                $statusClass = "bg-secondary";
+
+                                if ($reservation["status"] === "confirmed") {
+
+                                    $statusClass = "bg-success";
+
+                                }
+
+                                elseif ($reservation["status"] === "pending") {
+
+                                    $statusClass = "bg-warning";
+
+                                }
+
+                                elseif ($reservation["status"] === "cancelled") {
+
+                                    $statusClass = "bg-danger";
+
+                                }
+
+                                elseif ($reservation["status"] === "completed") {
+
+                                    $statusClass = "bg-primary";
+
+                                }
+
+                                ?>
+
+                                <span class="badge <?= $statusClass; ?>">
+
+                                    <?= ucfirst($reservation["status"]); ?>
 
                                 </span>
 
@@ -203,7 +233,14 @@ $hasReservations = !empty($reservations);
 
                         </div>
 
-                        <div class="card-footer bg-white border-0 d-flex flex-column gap-2">
+                        <div class="card-footer bg-white border-0">
+
+                            <a href="edit-reservation.php?id=<?= $reservation["id"]; ?>"
+                            class="btn btn-outline-primary w-100 mb-2">
+
+                                Modifier
+
+                            </a>
 
                             <!-- BOUTON AJOUTER AU PANIER -->
                             <form method="POST"

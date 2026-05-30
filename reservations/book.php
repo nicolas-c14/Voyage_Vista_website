@@ -34,63 +34,147 @@ if (!$accommodation) {
    SUBMIT
 ========================= */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $checkIn  = $_POST["check_in"];
-    $checkOut = $_POST["check_out"];
-    $persons  = intval($_POST["persons"]);
-    $action   = $_POST["action"] ?? "reserve";
+
+    $checkIn =
+        $_POST["check_in"];
+
+    $checkOut =
+        $_POST["check_out"];
+
+    $persons =
+        intval($_POST["persons"]);
+
+    $action =
+        $_POST["action"] ?? "reserve";
 
     /* =========================
-    Validations
+       DATE VALIDATION
     ========================= */
+
     if ($checkOut <= $checkIn) {
-        die("La date de départ doit être après la date d'arrivée.");
+
+        $error =
+            "La date de départ doit être après la date d'arrivée.";
+
     }
-    if ($persons <= 0) {
-        die("Nombre de personnes invalide.");
+
+    elseif ($persons <= 0) {
+
+        $error =
+            "Nombre de personnes invalide.";
+
     }
-    if ($checkIn < date("Y-m-d")) {
-        die("La date d'arrivée est invalide.");
+
+    elseif ($checkIn < date("Y-m-d")) {
+
+        $error =
+            "La date d'arrivée est invalide.";
+
     }
 
     /* =========================
-    CALCUL TOTAL PRICE
+       AVAILABILITY CHECK
     ========================= */
-    $checkInDate  = new DateTime($checkIn);
-    $checkOutDate = new DateTime($checkOut);
-    $interval     = $checkInDate->diff($checkOutDate);
-    $nights       = $interval->days;
-    $totalPrice   = $nights *
-                    $accommodation["price_per_night"] *
-                    $persons;
 
-    if ($action === "cart") {
-        /* =========================
-        AJOUT AU PANIER
-        ========================= */
-        addToCart(
-            $_SESSION["user_id"],
+    elseif (
+        !isAccommodationAvailable(
             $accommodationId,
             $checkIn,
-            $checkOut,
-            $persons
-        );
-        header("Location: " . APP_URL . "/cart/index.php?added=1");
-        exit;
+            $checkOut
+        )
+    ) {
+
+        $error =
+            "Cet hébergement n'est pas disponible pour ces dates.";
+
     }
 
-    /* =========================
-    RÉSERVATION DIRECTE
-    ========================= */
-    $reservationId = addReservation(
-        $_SESSION["user_id"],
-        $accommodationId,
-        $checkIn,
-        $checkOut,
-        $persons,
-        $totalPrice
-    );
-    header("Location: " . APP_URL . "/choose-transport.php?reservation_id=" . $reservationId);
-    exit;
+    else {
+
+        /* =========================
+           CALCUL NIGHTS
+        ========================= */
+
+        $start =
+            new DateTime($checkIn);
+
+        $end =
+            new DateTime($checkOut);
+
+        $nights =
+            $start->diff($end)->days;
+
+        /* =========================
+           TOTAL PRICE
+        ========================= */
+
+        $totalPrice =
+            $nights *
+            $accommodation["price_per_night"] *
+            $persons;
+
+        /* =========================
+           ADD TO CART
+        ========================= */
+
+        if ($action === "cart") {
+
+            addToCart(
+
+                $_SESSION["user_id"],
+
+                $accommodationId,
+
+                $checkIn,
+
+                $checkOut,
+
+                $persons
+
+            );
+
+            header(
+                "Location: " .
+                APP_URL .
+                "/cart/index.php?added=1"
+            );
+
+            exit;
+
+        }
+
+        /* =========================
+           DIRECT RESERVATION
+        ========================= */
+
+        $reservationId =
+            addReservation(
+
+                $_SESSION["user_id"],
+
+                $accommodationId,
+
+                $checkIn,
+
+                $checkOut,
+
+                $persons,
+
+                $totalPrice
+
+            );
+
+        header(
+            "Location: " .
+            APP_URL .
+            "/choose-transport.php?reservation_id=" .
+            $reservationId
+        );
+
+        exit;
+
+    }
+
 }
 ?>
 <!DOCTYPE html>
@@ -113,6 +197,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         Réserver :
         <?= $accommodation["name"]; ?>
     </h1>
+
+    <?php if(isset($error)): ?>
+
+        <div class="alert alert-danger">
+
+            <?= $error; ?>
+
+        </div>
+
+    <?php endif; ?>
+
     <form method="POST">
         <!-- CHECK IN -->
         <div class="mb-3">
