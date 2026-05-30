@@ -39,7 +39,7 @@ $hasReservations = !empty($reservations);
     <title>
         Mes réservations
     </title>
-    <link rel="icon" href="assets/images/VoyageVistaLogo.png" type="image/png">
+    <link rel="icon" href="../assets/images/VoyageVistaLogo.png" type="image/png">
 
 
     <link rel="stylesheet"
@@ -96,6 +96,18 @@ $hasReservations = !empty($reservations);
                 $nights =
                     $checkIn->diff($checkOut)->days;
 
+                /* Calcul d'une nouvelle date si la résa est passée
+                   (pour permettre la re-réservation au panier) */
+                $today = new DateTime("today");
+                $cartCheckIn  = $reservation["check_in"];
+                $cartCheckOut = $reservation["check_out"];
+                if ($checkIn < $today) {
+                    $newCheckIn  = (clone $today)->modify("+1 day");
+                    $newCheckOut = (clone $newCheckIn)->modify("+{$nights} day");
+                    $cartCheckIn  = $newCheckIn->format("Y-m-d");
+                    $cartCheckOut = $newCheckOut->format("Y-m-d");
+                }
+
                 ?>
 
                 <div class="col-md-4">
@@ -110,19 +122,34 @@ $hasReservations = !empty($reservations);
                             <h5>
 
                                 <?= $reservation["accommodation_name"]; ?>
-
                             </h5>
 
                             <p>
+                                <?= $reservation["destination_name"]; ?>
+                            </p>
 
-                                <?= $reservation["destination_name"]; ?>    
+                            <?php if($reservation["transport_type"]): ?>
+
+                            <p class="mt-2">
+
+                                ✈ Transport :
+
+                                <?= $reservation["transport_type"]; ?>
+
+                                <br>
+
+                                <?= $reservation["departure_city"]; ?>
+
+                                →
+
+                                <?= $reservation["arrival_city"]; ?>
 
                             </p>
 
+                            <?php endif; ?>
+
                             <p>
-
                                 <?= $reservation["country"]; ?>
-
                             </p>
 
                             <p>
@@ -215,11 +242,31 @@ $hasReservations = !empty($reservations);
 
                             </a>
 
+                            <!-- BOUTON AJOUTER AU PANIER -->
+                            <form method="POST"
+                                  action="../cart/add.php">
+                                <input type="hidden"
+                                       name="accommodation_id"
+                                       value="<?= $reservation["accommodation_id"]; ?>">
+                                <input type="hidden"
+                                       name="check_in"
+                                       value="<?= $cartCheckIn; ?>">
+                                <input type="hidden"
+                                       name="check_out"
+                                       value="<?= $cartCheckOut; ?>">
+                                <input type="hidden"
+                                       name="persons"
+                                       value="<?= $reservation["persons"]; ?>">
+                                <button type="submit"
+                                        class="btn btn-outline-primary w-100">
+                                    🛒 Ajouter au panier
+                                </button>
+                            </form>
+
+                            <!-- BOUTON ANNULER -->
                             <a href="delete-reservation.php?id=<?= $reservation["id"]; ?>"
-                            class="btn btn-outline-danger w-100">
-
+                               class="btn btn-outline-danger w-100">
                                 Annuler la réservation
-
                             </a>
 
                         </div>

@@ -33,7 +33,7 @@ function addReservation(
         VALUES (?, ?, ?, ?, ?, ?, ?)"
     );
 
-    return $stmt->execute([
+    $success = $stmt->execute([
         $userId,
         $accommodationId,
         $checkIn,
@@ -43,6 +43,11 @@ function addReservation(
         "pending"
     ]);
 
+    if(!$success){
+        return false;
+    }
+
+    return $pdo->lastInsertId();
 }
 
 /* =========================
@@ -67,17 +72,25 @@ function getReservationsByUser($userId) {
             destinations.name
             AS destination_name,
 
-            destinations.country
+            destinations.country,
+
+            transports.type
+            AS transport_type,
+
+            transports.departure_city,
+
+            transports.arrival_city
 
         FROM reservations
 
-        INNER JOIN accommodations
+        LEFT JOIN transports
+        ON reservations.transport_id = transports.id
 
+        INNER JOIN accommodations
         ON reservations.accommodation_id =
         accommodations.id
 
         INNER JOIN destinations
-
         ON accommodations.destination_id =
         destinations.id
 

@@ -4,7 +4,6 @@ session_start();
 
 require_once __DIR__ . "/models/destinationModel.php";
 require_once __DIR__ . "/models/accommodationModel.php";
-
 /* =========================
    CHECK ID
 ========================= */
